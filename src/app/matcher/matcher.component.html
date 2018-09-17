@@ -13,7 +13,7 @@
         </p>
     </div>
     <!--Geospatial file has been chosen-->
-    <div class="row" *ngIf="file_contents !== null" >
+    <div class="row" *ngIf="file_contents !== null">
         <div class="col-sm-6">
             Total Records: <b>{{ api_result.length}} </b>
             <table class="table table-bordered">
@@ -27,8 +27,8 @@
                     <td> {{ i + 1 }}</td>
 
                     <td> {{org_unit.displayName}} </td>
-                    <td></td>
-                    <td> </td>
+                    <td>[Not Set]</td>
+                    <td>[Not Set]</td>
                 </tr>
             </table>
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
