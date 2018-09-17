@@ -1,0 +1,40 @@
+<!--Could not load API Results-->
+<div *ngIf="api_result == null" style="text-align: center">
+    <p>Failed to load contents from the server, <br>this may be due to Internet connection issues!</p>
+</div>
+
+<!--API Result has been succefully returned-->
+<div *ngIf=" api_result !== null ">
+    <!--Geo Spatial file is not yet chosen-->
+    <div *ngIf="file_contents == null">
+        <p style="text-align: center">
+            No Geospatial file chosen, <br>Please Choose a file with these extensions
+            .json, .csv, .gml, or .kml
+        </p>
+    </div>
+    <!--Geospatial file has been chosen-->
+    <div class="row" *ngIf="file_contents !== null" >
+        <div class="col-sm-6">
+            Total Records: <b>{{ api_result.length}} </b>
+            <table class="table table-bordered">
+                <tr>
+                    <th>SN</th>
+                    <th>Target Name</th>
+                    <th>Matched Name</th>
+                    <th>Match Percent</th>
+                </tr>
+                <tr *ngFor=" let org_unit of api_result | paginate: {itemsPerPage: 50, currentPage: p }; let i = index ">
+                    <td> {{ i + 1 }}</td>
+
+                    <td> {{org_unit.displayName}} </td>
+                    <td></td>
+                    <td> </td>
+                </tr>
+            </table>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+        <div class="col-sm-6" style="border: 1px solid gray; margin-top: 25px">
+            <h1>For Map</h1>
+        </div>
+    </div>
+</div>

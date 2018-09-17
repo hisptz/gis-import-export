@@ -1,0 +1,8 @@
+{
+    "/api/*": {
+      "target": "https://play.dhis2.org/2.30",
+      "secure": "true",
+      "auth": "admin:district",
+      "changeOrigin": "true"
+    }
+  }

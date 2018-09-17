@@ -1,0 +1,34 @@
+<p *ngIf= "api_result.length != data_count">Initializing Contents ... {{ getCompletionPercent(api_result.length,data_count) }}%</p>
+<!--Various Options Goes here-->
+<div *ngIf = "api_result.length === data_count && api_result !== null">
+
+
+  <div class="row">
+    <!--File Upload Option-->
+    <div class="col-sm-6">
+
+      <input *ngIf="file_to_upload === null" type="file" (change)="onFileSelected($event)" accept=".json, .csv, .gml, .kml">
+      <p *ngIf="file_to_upload != null">Current file: {{file_to_upload.name}} <button  class="btn btn-link" (click)="reload()">Change File</button></p>
+    </div>
+
+    <!--Filtering Options-->
+    <div class="col-sm-6 dropdown" *ngIf="true">
+      <button class="btn btn-sm btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Match by...
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#" (click)="changeMatchOption('Name')">Name</a>
+        <a class="dropdown-item" href="#" (click)="changeMatchOption('UID')">UID</a>
+        <a class="dropdown-item" href="#" (click)="changeMatchOption('Code')">Code</a>
+      </div>
+
+      <label class='match-option' *ngIf="match_option">
+        Matching scheme:
+        {{ match_option }}
+      </label>
+    </div>
+  </div>
+  <br>
+  <app-matcher [file_contents]="file_contents" [api_result]="api_result" [match_scheme]="match_option" [match_results]="match_results"></app-matcher>
+</div>
