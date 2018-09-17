@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     /*Stores Match Results*/
     match_results = [];
     /*Data Count*/
-    data_count:number = 0;
+    data_count: number = 0;
 
     constructor(private http: HttpClient) { }
 
@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
                     });
                 });
             }
-            
+
 
         });
 
@@ -71,14 +71,18 @@ export class AppComponent implements OnInit {
                     break;
                 case 'csv':
 
-                    break;
+
                 case 'gml':
 
-                    break;
-                case 'kml':
 
+                case 'kml':
+                    alert('Sorry,system could not process a .' + file_type + ' file try .json file');
+                    window.parent.location.reload();
                     break;
+
                 default:
+
+                   
                 /*Do nothing!*/
 
             }
@@ -110,7 +114,7 @@ export class AppComponent implements OnInit {
                 });
             });
 
-            console.log( this.match_results);
+            console.log(this.match_results);
         };
 
         reader.readAsText(this.file_to_upload);
@@ -145,9 +149,9 @@ export class AppComponent implements OnInit {
     }
 
     //For Contents Initialization Status
-    getCompletionPercent(length,total){
-        var percent =  ((length/total)*100);
-        if (isNaN(percent)){
+    getCompletionPercent(length, total) {
+        var percent = ((length / total) * 100);
+        if (isNaN(percent)) {
             return 0;
         } else {
             return percent.toFixed(2);
