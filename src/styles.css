@@ -9,3 +9,7 @@
 .body{
     width: 90% !important
 }
+
+.no-decoration{
+    text-decoration: none
+}

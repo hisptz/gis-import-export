@@ -15,20 +15,69 @@
     <!--Geospatial file has been chosen-->
     <div class="row" *ngIf="file_contents !== null">
         <div class="col-sm-6">
-            Total Records: <b>{{ api_result.length}} </b>
+
+            <div class="row">
+
+                <div class="col-sm-4">
+                    <label>
+                        Total: <span class="badge badge-info">{{ api_result.length}}</span>
+                    </label>
+                </div>
+                <div class="col-sm-4">
+                    <label>
+                        Matched: <span class="badge badge-success"> {{ getResultsSummary(match_results).found}}</span>
+                    </label>
+
+                </div>
+                <div class="col-sm-4">
+
+                    <label>
+                        Not Matched: <span class="badge badge-danger">{{ getResultsSummary(match_results).not_found}}</span>
+                    </label>
+                </div>
+            </div>
+
+
+
             <table class="table table-bordered">
                 <tr>
                     <th>SN</th>
                     <th>Target Name</th>
-                    <th>Matched Name</th>
-                    <th>Match Percent</th>
+                    <th>Matches</th>
                 </tr>
-                <tr *ngFor=" let org_unit of api_result | paginate: {itemsPerPage: 50, currentPage: p }; let i = index ">
+                <tr *ngFor=" let org_unit of match_results | paginate: {itemsPerPage: 50, currentPage: p }; let i = index ">
                     <td> {{ i + 1 }}</td>
 
-                    <td> {{org_unit.displayName}} </td>
-                    <td>[Not Set]</td>
-                    <td>[Not Set]</td>
+                    <td> {{org_unit.name}} </td>
+                    <td>
+                        <label *ngIf="org_unit.match_result == null" title="Nothing to View">
+                            Found <p class="badge badge-danger">0</p>
+                        </label>
+                        <div>
+
+                            <div class="col-sm-6 dropdown" *ngIf="org_unit.match_result" title="Click to View">
+                                <button class="btn btn-sm btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Found <p class="badge badge-success">{{org_unit.match_result.length}}</p>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#" *ngFor="let result of org_unit.match_result">
+                                        <p>
+                                            {{ result.item.properties.name}} | {{ (1- result.score) * 100}}%
+                                        </p>
+                                        <span><i class="glyphicon glyphicon-ok"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+
+
+                            <!--ul>
+                                <li *ngFor="let result of org_unit.match_result">
+                                   {{(1- result.score) *100 }}%
+                                </li>
+                            </ul-->
+                        </div>
+                    </td>
                 </tr>
             </table>
             <pagination-controls (pageChange)="p = $event"></pagination-controls>

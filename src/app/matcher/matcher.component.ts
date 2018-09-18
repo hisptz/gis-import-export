@@ -21,7 +21,7 @@ export class MatcherComponent implements OnInit {
   /*Stores matching scheme*/
   @Input() match_scheme: string;
   /*Stores matching results*/
-  @Input() match_results:any
+  @Input() match_results: any
 
 
   title = 'GIS Import - Export';
@@ -30,10 +30,30 @@ export class MatcherComponent implements OnInit {
 
   ngOnInit() {
 
-    if (sessionStorage.file_contents != null){
+    if (sessionStorage.file_contents != null) {
       //console.log(this.file_contents);
     }
 
+  }
+
+  //Returns results details
+  getResultsSummary(results: any[]) {
+    var found = 0;
+    var not_found = 0;
+    if (results !== null) {
+      results.forEach(result => {
+        if (result.match_result == null) {
+          not_found++;
+        } else {
+          found++;
+        }
+      });
+      return {
+        'found': found,
+        'not_found': not_found
+      };
+    }
+    return null;
   }
 
 }

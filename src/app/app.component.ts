@@ -33,6 +33,30 @@ export class AppComponent implements OnInit {
     constructor(private http: HttpClient) { }
 
     ngOnInit() {
+
+        //Start testing
+        /* var students = [
+             {
+                 fname: 'Victor',
+                 lname: 'Mataba',
+                 regno: '2015-04-02584'
+             },
+             {
+                 fname: 'John',
+                 lname: 'Kulwa',
+                 regno: '2015-04-03290'
+             },
+             {
+                 fname: 'Andrew',
+                 lname: 'Emmanuel',
+                 regno: '2015-04-02593'
+             },
+         ];
+ 
+         var res = this.match(students,'02584','regno');
+         console.log(res);*/
+        //End Testing
+
         this.http.get(ORG_UNIT_API).subscribe((response: any) => {
             this.data_count = response.pager.total;
             // tslint:disable-next-line:no-shadowed-variable
@@ -67,7 +91,6 @@ export class AppComponent implements OnInit {
                     /*Covert File Contents to JSON presentation*/
                     //sessionStorage.file_contents = reader.result.toString();
                     this.file_contents = reader.result.toString();
-                    const fc = 'Hello';
                     break;
                 case 'csv':
 
@@ -82,39 +105,50 @@ export class AppComponent implements OnInit {
 
                 default:
 
-                   
+
                 /*Do nothing!*/
 
             }
 
             let file_object = JSON.parse(this.file_contents);
             /*Matching*/
-            let comparisons = 0;
+
+
+
             this.api_result.forEach(org_unit => {
-                file_object.features.forEach(feature => {
-
-                    var subject = org_unit.displayName;
-                    var target = feature.properties.name;
-
-                    if (subject.toLowerCase() === target.toLowerCase()) {
-                        this.match_results.push(
-                            {
-                                'subject': subject,
-                                'target': target,
-                                'name': subject,
-                                'geometry': feature.geometry,
-                                'le': feature.le,
-                                'type': feature.type,
-                                'percentage': '100%'
-                            },
-
-                        );
-                    }
-
+                //console.log(org_unit.displayName);
+                this.match_results.push({
+                    'id': org_unit.id,
+                    'name': org_unit.displayName,
+                    'match_result': AppComponent.match(file_object.features, org_unit.displayName, 'properties.name')
                 });
             });
 
-            console.log(this.match_results);
+            // console.log(this.match_results);
+
+            /* this.api_result.forEach(org_unit => {
+                 file_object.features.forEach(feature => {
+ 
+                     var subject = org_unit.displayName;
+                     var target = feature.properties.name;
+ 
+                     if (subject.toLowerCase() === target.toLowerCase()) {
+                         this.match_results.push(
+                             {
+                                 'subject': subject,
+                                 'target': target,
+                                 'name': subject,
+                                 'geometry': feature.geometry,
+                                 'le': feature.le,
+                                 'type': feature.type,
+                                 'percentage': '100%'
+                             },
+ 
+                         );
+                     }
+ 
+                 });
+             });*/
         };
 
         reader.readAsText(this.file_to_upload);
@@ -131,21 +165,21 @@ export class AppComponent implements OnInit {
 
 
     //Does Matching
-    match(contents, target, key) {
+    static match(contents, target, key) {
         var options = {
             shouldSort: true,
             includeScore: true,
-            threshold: 0.5,
+            threshold: 0.3,
             location: 0,
             distance: 100,
             maxPatternLength: 32,
-            minMatchCharLength: 1,
+            minMatchCharLength: 3,
             keys: [
                 key
             ]
         };
         var fuse = new Fuse(contents, options);
-        return fuse.search(target);
+        return fuse.search(target).length == 0 ? null : fuse.search(target);
     }
 
     //For Contents Initialization Status
@@ -157,6 +191,4 @@ export class AppComponent implements OnInit {
             return percent.toFixed(2);
         }
     }
-    //Searches for @name in @match_result
-
 }
