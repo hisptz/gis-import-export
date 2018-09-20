@@ -56,4 +56,9 @@ export class MatcherComponent implements OnInit {
     return null;
   }
 
+  //Approximates @num to 2 decimal places
+  to2Dp(num: number){
+    return num.toFixed(2);
+  }
+
 }

@@ -1,0 +1,19 @@
+{
+    "version": "0.1",
+    "name": "gis",
+    "description": "gis",
+    "launch_path": "index.html",
+    "icons": {
+        "16": "/assets/images/loading.gif"
+    },
+    "developer": {
+        "name": "HISP",
+        "url": "http://dhis2.org"
+    },
+    "default_locale": "en",
+    "activities": {
+        "dhis": {
+            "href": ".."
+        }
+    }
+}

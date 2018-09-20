@@ -1,34 +1,44 @@
-<p *ngIf= "api_result.length != data_count">Initializing Contents ... {{ getCompletionPercent(api_result.length,data_count) }}%</p>
-<!--Various Options Goes here-->
-<div *ngIf = "api_result.length === data_count && api_result !== null">
+<app-global-menu></app-global-menu>
+
+<br>
+<br>
 
 
-  <div class="row">
-    <!--File Upload Option-->
-    <div class="col-sm-6">
+<div style="margin-top:3px">
 
-      <input *ngIf="file_to_upload === null" type="file" (change)="onFileSelected($event)" accept=".json, .csv, .gml, .kml">
-      <p *ngIf="file_to_upload != null">Current file: {{file_to_upload.name}} <button  class="btn btn-link" (click)="reload()">Change File</button></p>
-    </div>
+  <p *ngIf="api_result.length != data_count">Initializing Contents ... {{
+    getCompletionPercent(api_result.length,data_count) }}%</p>
+  <!--Various Options Goes here-->
+  <div>
+    <div class="row">
+      <!--File Upload Option-->
+      <div class="col-sm-6">
 
-    <!--Filtering Options-->
-    <div class="col-sm-6 dropdown" *ngIf="true">
-      <button class="btn btn-sm btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        Match by...
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#" (click)="changeMatchOption('Name')">Name</a>
-        <!--a class="dropdown-item" href="#" (click)="changeMatchOption('UID')">UID</a-->
-        <!--a class="dropdown-item" href="#" (click)="changeMatchOption('Code')">Code</a-->
+        <input *ngIf="file_to_upload === null" type="file" (change)="onFileSelected($event)" accept=".json, .csv, .gml, .kml">
+        <p *ngIf="file_to_upload != null">Current file: {{file_to_upload.name}} <button class="btn btn-link" (click)="reload()">Change
+            File</button></p>
       </div>
 
-      <label class='match-option' *ngIf="match_option">
-        Matching scheme:
-        {{ match_option }}
-      </label>
+
+      <div class="col" *ngIf="true">
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-outline-link" id="dropdownBasic1" ngbDropdownToggle> Match by...</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button class="dropdown-item" (click)="changeMatchOption('Name')">Name</button>
+          </div>
+        </div>
+
+        <label class='match-option' *ngIf="match_option">
+          Matching scheme:
+          {{ match_option }}
+        </label>
+      </div>
+
+
     </div>
+    <br>
+    <app-matcher [file_contents]="file_contents" [api_result]="api_result" [match_scheme]="match_option"
+      [match_results]="match_results"></app-matcher>
   </div>
-  <br>
-  <app-matcher [file_contents]="file_contents" [api_result]="api_result" [match_scheme]="match_option" [match_results]="match_results"></app-matcher>
+
 </div>

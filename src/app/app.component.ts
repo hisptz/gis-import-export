@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { element } from 'protractor';
 import * as Fuse from 'fuse.js';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 /*Stores main API*/
-const ORG_UNIT_API = '/api/26/organisationUnits.json';
+const ORG_UNIT_API = 'api/organisationUnits.json';
 const TEST_API = 'https://my-json-server.typicode.com/vmataba/json/db';
 
 
@@ -115,16 +116,24 @@ export class AppComponent implements OnInit {
 
 
 
-            this.api_result.forEach(org_unit => {
+            file_object.features.forEach(feature => {
+                this.match_results.push({
+                    'feature': feature,
+                    'match_result': AppComponent.match(this.api_result,feature.properties.name,'displayName')
+                });
+            });
+
+            /*this.api_result.forEach(org_unit => {
                 //console.log(org_unit.displayName);
                 this.match_results.push({
                     'id': org_unit.id,
                     'name': org_unit.displayName,
                     'match_result': AppComponent.match(file_object.features, org_unit.displayName, 'properties.name')
                 });
-            });
+            });*/
 
-            // console.log(this.match_results);
+
+             console.log(this.match_results);
 
             /* this.api_result.forEach(org_unit => {
                  file_object.features.forEach(feature => {
@@ -149,6 +158,7 @@ export class AppComponent implements OnInit {
  
                  });
              });*/
+             this.file_contents = JSON.parse(this.file_contents);
         };
 
         reader.readAsText(this.file_to_upload);
@@ -169,7 +179,7 @@ export class AppComponent implements OnInit {
         var options = {
             shouldSort: true,
             includeScore: true,
-            threshold: 0.3,
+            threshold: 0.2,
             location: 0,
             distance: 100,
             maxPatternLength: 32,

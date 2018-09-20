@@ -1,0 +1,26 @@
+{
+    "version": "1.0-Alpha",
+    "name": "GIS Import Export",
+    "description": "GIS Import Export",
+    "launch_path": "index.html",
+    "appType": "APP",
+    "icons": {
+        "16": "/assets/images/loading.gif"
+    },
+    "developer": {
+        "name": "HISP",
+        "url": "http://dhis2.org"
+    },
+    "default_locale": "en",
+    "activities": {
+        "dhis": {
+            "href": ".."
+        }
+    },
+ "authorities": [
+         "MY_APP_ADD_NEW",
+         "MY_APP_UPDATE",
+         "MY_APP_DELETE"
+]
+    
+}

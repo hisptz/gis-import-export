@@ -1,3 +1,7 @@
+
+
+
+
 <!--Could not load API Results-->
 <div *ngIf="api_result == null" style="text-align: center">
     <p>Failed to load contents from the server, <br>this may be due to Internet connection issues!</p>
@@ -14,13 +18,15 @@
     </div>
     <!--Geospatial file has been chosen-->
     <div class="row" *ngIf="file_contents !== null">
-        <div class="col-sm-6">
-
+        <div class="col-sm-8">
+            <label style="font-weight: bold">
+                Matching Summary
+            </label>
+            <br>
             <div class="row">
-
                 <div class="col-sm-4">
                     <label>
-                        Total: <span class="badge badge-info">{{ api_result.length}}</span>
+                        Total: <span class="badge badge-info">{{ file_contents.features.length}}</span>
                     </label>
                 </div>
                 <div class="col-sm-4">
@@ -45,45 +51,44 @@
                     <th>Target Name</th>
                     <th>Matches</th>
                 </tr>
-                <tr *ngFor=" let org_unit of match_results | paginate: {itemsPerPage: 50, currentPage: p }; let i = index ">
+                <tr *ngFor=" let result of match_results | paginate: {itemsPerPage: 50, currentPage: p }; let i = index ">
                     <td> {{ i + 1 }}</td>
 
-                    <td> {{org_unit.name}} </td>
+                    <td> {{result.feature.properties.name}} </td>
+
                     <td>
-                        <label *ngIf="org_unit.match_result == null" title="Nothing to View">
-                            Found <p class="badge badge-danger">0</p>
+
+
+                        <label *ngIf="result.match_result == null" title="Nothing to View">
+                            <button class="btn btn-outline-link"> Found <span class="badge badge-danger">0</span></button>
                         </label>
                         <div>
 
-                            <div class="col-sm-6 dropdown" *ngIf="org_unit.match_result" title="Click to View">
-                                <button class="btn btn-sm btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Found <p class="badge badge-success">{{org_unit.match_result.length}}</p>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#" *ngFor="let result of org_unit.match_result">
+                            <div ngbDropdown class="" *ngIf="result.match_result" title="Click to View">
+                                <button class="btn btn-outline-link" id="dropdownBasic1" ngbDropdownToggle>Found <span
+                                        class="badge badge-success">{{result.match_result.length}}</span></button>
+                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                    <button class="dropdown-item" *ngFor="let res of result.match_result">
                                         <p>
-                                            {{ result.item.properties.name}} | {{ (1- result.score) * 100}}%
+                                            {{ res.item.displayName}} | {{ to2Dp((1- res.score) * 100)}}%
                                         </p>
-                                        <span><i class="glyphicon glyphicon-ok"></i></span>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
 
-
-                            <!--ul>
-                                <li *ngFor="let result of org_unit.match_result">
-                                   {{(1- result.score) *100 }}%
-                                </li>
-                            </ul-->
                         </div>
+
+
                     </td>
+
+
+
                 </tr>
             </table>
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </div>
-        <div class="col-sm-6" style="border: 1px solid gray; margin-top: 25px">
-            <h1>For Map</h1>
+        <div class="col-sm-4" style="border: 0.5px solid gray; margin-top: 25px">
+            <h3>[For Map]</h3>
         </div>
     </div>
 </div>
