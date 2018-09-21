@@ -50,18 +50,30 @@ var ClassMetadataWalker = (function (_super) {
     ClassMetadataWalker.prototype.visitNgInjectable = function (controller, decorator) {
         this.className = controller.name.text;
         this.isInjectable = true;
+        this.isComponent = false;
+        this.isDirective = false;
+        this.isPipe = false;
     };
     ClassMetadataWalker.prototype.visitNgComponent = function (metadata) {
         this.className = metadata.controller.name.text;
         this.isComponent = true;
+        this.isInjectable = false;
+        this.isDirective = false;
+        this.isPipe = false;
     };
     ClassMetadataWalker.prototype.visitNgDirective = function (metadata) {
         this.className = metadata.controller.name.text;
         this.isDirective = true;
+        this.isInjectable = false;
+        this.isComponent = false;
+        this.isPipe = false;
     };
     ClassMetadataWalker.prototype.visitNgPipe = function (controller, decorator) {
         this.className = controller.name.text;
         this.isPipe = true;
+        this.isInjectable = false;
+        this.isComponent = false;
+        this.isDirective = false;
     };
     ClassMetadataWalker.prototype.visitMethodDeclaration = function (method) {
         var methodName = method.name.text;

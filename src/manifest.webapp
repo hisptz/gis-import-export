@@ -1,0 +1,21 @@
+{
+    "version": "1.0.0-Alpa",
+    "name": "gis",
+    "description": "GIS Import Export",
+    "launch_path": "index.html",
+    "icons": {
+        "16": "favicon.ico",
+        "48": "favicon.ico",
+        "128": "favicon.ico"
+    },
+    "developer": {
+        "name": "HISPTZ",
+        "url": "https://hisptanzania.org"
+    },
+    "default_locale": "en",
+    "activities": {
+        "dhis": {
+            "href": "../../.."
+        }
+    }
+}

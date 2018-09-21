@@ -30,6 +30,9 @@ var JitReflector = (function () {
     JitReflector.prototype.annotations = function (typeOrFunc) {
         return this.reflectionCapabilities.annotations(typeOrFunc);
     };
+    JitReflector.prototype.shallowAnnotations = function (typeOrFunc) {
+        throw new Error('Not supported in JIT mode');
+    };
     JitReflector.prototype.propMetadata = function (typeOrFunc) {
         return this.reflectionCapabilities.propMetadata(typeOrFunc);
     };

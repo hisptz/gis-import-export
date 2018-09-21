@@ -3,42 +3,4 @@
 <br>
 <br>
 
-
-<div style="margin-top:3px">
-
-  <p *ngIf="api_result.length != data_count">Initializing Contents ... {{
-    getCompletionPercent(api_result.length,data_count) }}%</p>
-  <!--Various Options Goes here-->
-  <div>
-    <div class="row">
-      <!--File Upload Option-->
-      <div class="col-sm-6">
-
-        <input *ngIf="file_to_upload === null" type="file" (change)="onFileSelected($event)" accept=".json, .csv, .gml, .kml">
-        <p *ngIf="file_to_upload != null">Current file: {{file_to_upload.name}} <button class="btn btn-link" (click)="reload()">Change
-            File</button></p>
-      </div>
-
-
-      <div class="col" *ngIf="true">
-        <div ngbDropdown class="d-inline-block">
-          <button class="btn btn-outline-link" id="dropdownBasic1" ngbDropdownToggle> Match by...</button>
-          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button class="dropdown-item" (click)="changeMatchOption('Name')">Name</button>
-          </div>
-        </div>
-
-        <label class='match-option' *ngIf="match_option">
-          Matching scheme:
-          {{ match_option }}
-        </label>
-      </div>
-
-
-    </div>
-    <br>
-    <app-matcher [file_contents]="file_contents" [api_result]="api_result" [match_scheme]="match_option"
-      [match_results]="match_results"></app-matcher>
-  </div>
-
-</div>
+<app-matcher></app-matcher>

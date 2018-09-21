@@ -31,7 +31,7 @@ var Rule = (function (_super) {
         typescriptOnly: true,
     };
     Rule.FAILURE_STRING = 'In the class "%s", the output ' +
-        'property "%s" should not be named after a standard event.';
+        'property "%s" should not be named or renamed after a standard event.';
     return Rule;
 }(Lint.Rules.AbstractRule));
 exports.Rule = Rule;
@@ -217,7 +217,8 @@ var OutputMetadataWalker = (function (_super) {
     OutputMetadataWalker.prototype.visitNgOutput = function (property, output, args) {
         var className = property.parent.name.text;
         var memberName = property.name.text;
-        if (memberName && this.standardEventNames.get(memberName)) {
+        var outputName = args.length === 0 ? memberName : args[0];
+        if (outputName && this.standardEventNames.get(outputName)) {
             var failureConfig = [Rule.FAILURE_STRING, className, memberName];
             var errorMessage = sprintf_js_1.sprintf.apply(null, failureConfig);
             this.addFailure(this.createFailure(property.getStart(), property.getWidth(), errorMessage));
