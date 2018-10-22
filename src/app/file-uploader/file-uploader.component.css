@@ -1,0 +1,25 @@
+.uploader-container{
+    margin-left: 25%;
+    margin-right: 25%
+}
+
+.uploader{
+    outline: 1px dashed grey;
+    height: 120px;
+}
+
+.uploader-contents{
+    text-align: center;
+    font-size: 1.2em;
+    color: grey;
+    margin-top: 30px
+}
+
+#btn-file-upload-new{
+    cursor: pointer;
+    color: gray
+}
+
+#chosen-file-name{
+    color: gray
+}

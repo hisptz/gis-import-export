@@ -2,13 +2,13 @@
     "/api": {
       "target": "https://play.dhis2.org/2.30",
       "secure": "false",
-      "auth": "admin:district",
+      "auth": "system:System123",
       "changeOrigin": "true"
     },
     "/": {
       "target": "https://play.dhis2.org/2.30",
       "secure": "false",
-      "auth":"admin:district",
+      "auth":"system:System123",
       "changeOrigin": "true"
     }
   }

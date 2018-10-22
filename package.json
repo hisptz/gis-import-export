@@ -22,10 +22,13 @@
     "@angular/router": "^6.1.0",
     "@hisptz/ngx-dhis2-menu": "^1.0.5",
     "@ng-bootstrap/ng-bootstrap": "^3.2.0",
+    "angular-material-source": "github:angular/material",
     "bootstrap": "^4.0.0-alpha.6",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
     "fuse.js": "^3.2.1",
+    "ngx-draggable-widget": "^1.0.7",
+    "ngx-file-drop": "^4.0.6",
     "ngx-pagination": "^3.2.0",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"

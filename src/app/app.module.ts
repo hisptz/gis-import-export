@@ -8,19 +8,30 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AppComponent } from './app.component';
 import { GlobalMenuComponent } from './global-menu/global-menu.component';
 import { MatcherComponent } from './matcher/matcher.component';
+import { FileUploaderComponent } from './file-uploader/file-uploader.component';
+import { ResultsComponent } from './results/results.component';
+import { MapComponent } from './map/map.component';
+import { OptionsComponent } from './options/options.component';
+import { SideMenuComponent } from './side-menu/side-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GlobalMenuComponent,
-    MatcherComponent
+    MatcherComponent,
+    FileUploaderComponent,
+    ResultsComponent,
+    MapComponent,
+    OptionsComponent,
+    SideMenuComponent
   ],
   imports: [
     BrowserModule,
     NgxDhis2MenuModule,
     BrowserAnimationsModule,
     NgbModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+  
   ],
   providers: [],
   bootstrap: [AppComponent]

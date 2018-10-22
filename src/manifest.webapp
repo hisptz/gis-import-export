@@ -1,6 +1,6 @@
 {
     "version": "1.0.0-Alpa",
-    "name": "gis",
+    "name": "gis-import-export",
     "description": "GIS Import Export",
     "launch_path": "index.html",
     "icons": {

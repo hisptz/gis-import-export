@@ -1,0 +1,7 @@
+<input type="file" id="btn-file-upload-old" hidden (change)="setChosenFileName($event)" accept="{{accept}}">
+<button class="btn btn-sm" id="btn-file-upload-new" title="{{btnFileUploadTitle}}" (click)="tranferFileUploadClickEvent()">
+  <i class="fa fa-upload"></i>
+</button>
+<span id="chosen-file-name">
+  No Geospatial File Chosen!
+</span>

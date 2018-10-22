@@ -1,0 +1,12 @@
+#side-menu p{
+    border-bottom: 0.1px solid lavender;
+    height: 40px;
+    padding-top: 3px;
+    list-style: none;
+    cursor: pointer;
+    position: relative;
+
+
+}
+
+

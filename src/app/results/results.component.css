@@ -1,0 +1,7 @@
+.org-unit-child li{
+    border-bottom: 0.1px solid lavender;
+    height: 40px;
+    list-style: none;
+    cursor: pointer;
+    font-size: 0.8em
+}

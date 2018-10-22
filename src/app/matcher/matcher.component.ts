@@ -35,29 +35,6 @@ export class MatcherComponent implements OnInit {
 
   ngOnInit() {
 
-    //Start testing
-    /* var students = [
-         {
-             fname: 'Victor',
-             lname: 'Mataba',
-             regno: '2015-04-02584'
-         },
-         {
-             fname: 'John',
-             lname: 'Kulwa',
-             regno: '2015-04-03290'
-         },
-         {
-             fname: 'Andrew',
-             lname: 'Emmanuel',
-             regno: '2015-04-02593'
-         },
-     ];
- 
-     var res = this.match(students,'02584','regno');
-     console.log(res);*/
-    //End Testing
-
     this.http.get(ORG_UNIT_PROD_API).subscribe((response: any) => {
       this.data_count = response.pager.total;
       // tslint:disable-next-line:no-shadowed-variable
