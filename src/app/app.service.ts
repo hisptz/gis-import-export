@@ -10,29 +10,39 @@ const ORG_UNIT_API = '../../../api/organisationUnits.json?fields=' + ORGANISATIO
 })
 export class AppService implements OnInit {
   //Counts Total Organisation Units
-  private data_count = 0;
+  public dataCount = 0;
   //Stores Organisation Units
-  private api_result = []
+  public apiResult = []
+  //Stores Geospatial file contents Object
+  public featureCollection: any
+  //Stores Match Result
+  public count = 0
+  //Organisation Unit api
+  public organisationUnitsApi: string
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.organisationUnitsApi = ORG_UNIT_API
+    this.dataCount = 0;
+
+    this.apiResult = [];
+
     this.http.get(ORG_UNIT_API).subscribe((response: any) => {
-      this.data_count = response.pager.total;
+      this.dataCount = response.pager.total;
       // tslint:disable-next-line:no-shadowed-variable
       response.organisationUnits.forEach(element => {
-        this.api_result.push(element);
+        this.apiResult.push(element);
+        this.count++
       });
       const startAt = response.pager.page + 1;
       const pageCount = response.pager.pageCount;
       for (let i = startAt; i <= pageCount; i++) {
-        this.http.get(ORG_UNIT_API + '?page=' + i).subscribe((response_2: any) => {
+        this.http.get(ORG_UNIT_API + '&page=' + i).subscribe((response_2: any) => {
           // tslint:disable-next-line:no-shadowed-variable
           response_2.organisationUnits.forEach(element => {
-            this.api_result.push(element);
-
-            //console.log('ELEMENT: ',element);
-
+            this.apiResult.push(element);
+            this.count++
           });
         });
       }
@@ -41,17 +51,16 @@ export class AppService implements OnInit {
 
   //Get All Organisation Units
   getOrganisationUnits() {
-    return this.api_result
+    return [...this.apiResult]
   }
 
   //Get load Progress
   getLoadProgress() {
-    return (this.api_result.length / this.data_count).toFixed(2)
+    return (this.apiResult.length / this.dataCount).toFixed(2)
   }
 
   //Counts Organisation Units
-  getOrganisationUnitsCount(){
-    return this.api_result.length
+  getOrganisationUnitsCount() {
+    return this.apiResult.length
   }
-
 }

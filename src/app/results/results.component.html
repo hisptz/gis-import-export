@@ -1,43 +1,48 @@
-<div>
-  <label style="color: gray"> Total Organisation Units: {{appService.getOrganisationUnitsCount()}}</label>
-  <p *ngIf="appService.getLoadProgress() < 1">
-    <ngb-progressbar showValue="true" type="success" [value]="appService.getLoadProgress() * 100"></ngb-progressbar>
-  </p>
-  <table class="table">
-    <tr>
-      <th>Code</th>
-      <th>Name</th>
-      <th>Short Name</th>
-      <th>Level</th>
-      <th>Children</th>
-    </tr>
-    <tr *ngFor="let organisationUnit of appService.getOrganisationUnits() | paginate: {itemsPerPage: 20, currentPage: p }">
-      <td>
-        {{ organisationUnit.code}}
-      </td>
-      <td>
-        {{ organisationUnit.name}}
-      </td>
-      <td>
-        {{organisationUnit.shortName}}
-      </td>
-      <td>
-        {{organisationUnit.level}}
-      </td>
-      <td>
-        <span class="badge badge-primary" style="background: gray" *ngIf="organisationUnit.children.length>0">
-          <!--{{organisationUnit.children.length}}-->
-          <i class='fa fa-plus'></i>
-        </span>
-        <ul class="org-unit-child" *ngIf="organisationUnit.children.length>0">
-          <li *ngFor="let child of organisationUnit.children" hidden>
-            {{child.name}}
-          </li>
-        </ul>
-        <label *ngIf="organisationUnit.children.length == 0">NILL</label>
-      </td>
-    </tr>
-  </table>
+<div *ngIf="appService.featureCollection">
+  <label style="color: gray">Match Results Summary</label>
+  <!--p style="color: gray">
+    Total: {{ matchResultsSummary.total}}
 
+    Matched: {{ matchResultsSummary.matched}}
+
+    Duplicates: {{ matchResultsSummary.duplicates }}
+
+    Unmatched: {{ matchResultsSummary.unmatched}}
+  </p-->
+  <!--Matching-->
+  <!--ngb-progressbar showValue="true" type="success" [value]="76"></ngb-progressbar-->
+  <div class="card">
+    <table class="table table-hover">
+      <tr>
+        <th>Organisation Unit</th>
+        <th>Level</th>
+        <th>Status</th>
+      </tr>
+      <tr *ngFor="let matchResult of matchResults  | paginate: {itemsPerPage: 20, currentPage: p }" >
+        <td>
+          {{matchResult.feature.properties.name}}
+        </td>
+        <td>
+          {{matchResult.feature.le}}
+        </td>
+        <td>
+          <div class="{{getMatchClass(matchResult.results)}}">
+            {{getMatchDescription(matchResult.results)}}
+          </div>
+        </td>
+        <td>
+          <i class="fa fa-ellipsis-v" style="font-size: 1.2em" title="More Options" (click)="getMoreOptions()"></i>
+        </td>
+      </tr>
+    </table>
+  </div>
   <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+<div *ngIf="!appService.featureCollection">
+
+  <ngb-alert [dismissible]="false">
+    <strong>No GeoSpatial File Chosen!</strong> Click <i class="fa fa-upload"></i> to Select one
+  </ngb-alert>
+
 </div>

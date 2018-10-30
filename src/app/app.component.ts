@@ -12,6 +12,8 @@ export class AppComponent {
 
   closeResult: string;
 
+  private testMessage = 'Sample Testing Message';
+
   constructor(private modalService: NgbModal) { }
 
   open(content) {

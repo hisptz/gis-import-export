@@ -1,20 +1,23 @@
 <div id="side-menu">
   <strong>Menu Options</strong>
   <hr>
-  <p>
-    <span class="fa fa-list"></span>
-    Matching results
-  </p>
-  <p>
-    <span class="fa fa-list"></span>
-    File Contents
-  </p>
-  <p>
-    <span class="fa fa-list"></span>
-    Organisation Units
-  </p>
+  <a [routerLink]="['fileContents']">
+    <p>
+      <span class="fa fa-list"></span>
+      File Contents
+    </p>
+  </a>
+  <a [routerLink]="['']">
+    <p>
+      <span class="fa fa-list"></span>
+      Organisation Units
+    </p>
+  </a>
+
+  <a [routerLink]="['matchResults']">
+    <p>
+      <span class="fa fa-list"></span>
+      Match Results
+    </p>
+  </a>
 </div>
-
-
-
-

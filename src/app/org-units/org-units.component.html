@@ -1,0 +1,46 @@
+<div>
+  <label style="color: gray"> Loaded Organisation Units: {{appService.getOrganisationUnitsCount()}} <sup *ngIf="appService.getLoadProgress() < 1">{{'/'+appService.dataCount}}</sup></label>
+  <p *ngIf="appService.getLoadProgress() < 1">
+    <ngb-progressbar showValue="true" type="success" [value]="appService.getLoadProgress() * 100"></ngb-progressbar>
+  </p>
+  <div class="card">
+    <table class="table table-hover">
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Short Name</th>
+        <th>Level</th>
+        <th>Children</th>
+      </tr>
+      <tr *ngFor="let organisationUnit of appService.getOrganisationUnits() | paginate: {itemsPerPage: 20, currentPage: p }">
+        <td>
+          {{ organisationUnit.code}}
+        </td>
+        <td>
+          {{ organisationUnit.name}}
+        </td>
+        <td>
+          {{organisationUnit.shortName}}
+        </td>
+        <td>
+          {{organisationUnit.level}}
+        </td>
+        <td>
+          <span class="badge badge-primary" style="background: gray" *ngIf="organisationUnit.children.length>0">
+            <!--{{organisationUnit.children.length}}-->
+            <i class='fa fa-plus'></i>
+          </span>
+          <ul class="org-unit-child" *ngIf="organisationUnit.children.length>0">
+            <li *ngFor="let child of organisationUnit.children" hidden>
+              {{child.name}}
+            </li>
+          </ul>
+          <label *ngIf="organisationUnit.children.length == 0">NILL</label>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>

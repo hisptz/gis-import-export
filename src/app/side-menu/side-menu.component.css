@@ -5,8 +5,10 @@
     list-style: none;
     cursor: pointer;
     position: relative;
+}
 
-
+#side-menu a{
+    text-decoration: none
 }
 
 

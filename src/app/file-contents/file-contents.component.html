@@ -1,0 +1,32 @@
+<div *ngIf="appService.featureCollection">
+  <label style="color: gray"> {{appService.featureCollection.type +' ('+
+    appService.featureCollection.features.length+')'}}</label>
+  <br>
+  <div class="card">
+    <table class="table table-hover">
+      <tr>
+        <th>Feature Type</th>
+        <th>Level</th>
+        <th>Name</th>
+        <th>Options</th>
+      </tr>
+      <tr *ngFor="let feature of appService.featureCollection.features  | paginate: {itemsPerPage: 20, currentPage: p }">
+        <td>{{ feature.type }}</td>
+        <td>{{ feature.le }}</td>
+        <td>{{ feature.properties.name }}</td>
+        <td>
+          <i class="fa fa-menu"></i>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+<div *ngIf="!appService.featureCollection">
+
+  <ngb-alert [dismissible]="false">
+    <strong>No GeoSpatial File Chosen!</strong> Click <i class="fa fa-upload"></i> to Select one
+  </ngb-alert>
+
+</div>

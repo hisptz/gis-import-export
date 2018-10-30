@@ -96,7 +96,7 @@ export class MatcherComponent implements OnInit {
       file_object.features.forEach(feature => {
         this.match_results.push({
           'feature': feature,
-          'match_result': MatcherComponent.match(this.api_result, feature.properties.name, 'displayName')
+          'matchResult': MatcherComponent.match(this.api_result, feature.properties.name, 'displayName')
         });
       });
 
