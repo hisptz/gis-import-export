@@ -1,14 +1,42 @@
 <div *ngIf="appService.featureCollection">
-  <label style="color: gray">Match Results Summary</label>
-  <!--p style="color: gray">
-    Total: {{ matchResultsSummary.total}}
 
-    Matched: {{ matchResultsSummary.matched}}
+  <!--ngb-alert [dismissible]="false" [type]="'success'" style="height: 50px"></ngb-alert-->
 
-    Duplicates: {{ matchResultsSummary.duplicates }}
 
-    Unmatched: {{ matchResultsSummary.unmatched}}
-  </p-->
+
+
+  <label style="color: gray">Results Summary per GIS <b>-</b> DHIS Organisation Units Mapping</label>
+  <p style="color: gray">
+    Total: <label class="badge badge-info">{{ matchResults.length}}</label>
+
+    Matched: <label class="badge badge-success">{{ matchResultsSummary.matched}}</label>
+
+    Duplicates: <label class="badge badge-warning">{{ matchResultsSummary.duplicates }}</label>
+
+    Unmatched: <label class="badge badge-danger">{{ matchResultsSummary.unmatched}}</label>
+
+    &nbsp;
+    
+    <b>|</b>
+
+    &nbsp;
+
+    Displaying
+    {{  
+     appService.searchResults('NAME',
+     appService.searchResults('LEVEL',
+     appService.searchResults('MATCH_STATUS',
+     matchResults
+     ))).length 
+     }}
+
+     Out of  {{matchResults.length}}
+
+  </p>
+
+
+
+
   <!--Matching-->
   <!--ngb-progressbar showValue="true" type="success" [value]="76"></ngb-progressbar-->
   <div class="card">
@@ -18,12 +46,45 @@
         <th>Level</th>
         <th>Status</th>
       </tr>
-      <tr *ngFor="let matchResult of matchResults  | paginate: {itemsPerPage: 20, currentPage: p }" >
+      <tr>
+        <td>
+          <input type="text" placeholder="Type Organisation Unit Name..." class="form-control" [value]="appService._search_keyword_name"
+            (input)="appService.updateNameInput($event)">
+        </td>
+        <td>
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-light" style="opacity: 0.4" id="dropdownBasic1" ngbDropdownToggle>{{appService._search_keyword_level}}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button *ngIf="appService._search_keyword_level != 'All'" class="dropdown-item" (click)="appService.updateLevelInput('All')">All</button>
+              <button *ngIf="appService._search_keyword_level != 'Country'" class="dropdown-item" (click)="appService.updateLevelInput('Country')">Country</button>
+              <button *ngIf="appService._search_keyword_level != 'Region'" class="dropdown-item" (click)="appService.updateLevelInput('Region')">Region</button>
+              <button *ngIf="appService._search_keyword_level != 'Council'" class="dropdown-item" (click)="appService.updateLevelInput('Council')">Council</button>
+              <button *ngIf="appService._search_keyword_level != 'Facility'" class="dropdown-item" (click)="appService.updateLevelInput('Facility')">Facility</button>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-light" style="opacity: 0.4" id="dropdownBasic1" ngbDropdownToggle>{{appService._status_matches}}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button *ngIf="appService._status_all != 'All'" class="dropdown-item" (click)="appService.updateMatchStatus('All')">All</button>
+              <button *ngIf="appService._status_matched != 'Matched'" class="dropdown-item" (click)="appService.updateMatchStatus('Matched')">Matched</button>
+              <button *ngIf="appService._status_unmatched != 'Unmatched'" class="dropdown-item" (click)="appService.updateMatchStatus('Unmatched')">Unmatched</button>
+              <button *ngIf="appService._status_duplicates != 'Duplicates'" class="dropdown-item" (click)="appService.updateMatchStatus('Duplicates')">Duplicates</button>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr *ngFor="let matchResult of appService.searchResults('NAME',
+                      appService.searchResults('LEVEL',
+                      appService.searchResults('MATCH_STATUS',
+                      matchResults
+                      )))  | paginate: {itemsPerPage: 20, currentPage: p }">
         <td>
           {{matchResult.feature.properties.name}}
         </td>
         <td>
-          {{matchResult.feature.le}}
+          {{appService.getOrganisationUnitLevelName(matchResult.feature.le)}}
         </td>
         <td>
           <div class="{{getMatchClass(matchResult.results)}}">
@@ -31,7 +92,7 @@
           </div>
         </td>
         <td>
-          <i class="fa fa-ellipsis-v" style="font-size: 1.2em" title="More Options" (click)="getMoreOptions()"></i>
+          <i class="fa fa-ellipsis-v" style="font-size: 1.2em" placement="bottom" ngbTooltip="More Options" style="cursor: pointer"></i>
         </td>
       </tr>
     </table>

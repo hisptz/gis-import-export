@@ -1,26 +1,78 @@
 <div *ngIf="appService.featureCollection">
-  <label style="color: gray"> {{appService.featureCollection.type +' ('+
-    appService.featureCollection.features.length+')'}}</label>
-  <br>
-  <div class="card">
-    <table class="table table-hover">
-      <tr>
-        <th>Feature Type</th>
-        <th>Level</th>
-        <th>Name</th>
-        <th>Options</th>
-      </tr>
-      <tr *ngFor="let feature of appService.featureCollection.features  | paginate: {itemsPerPage: 20, currentPage: p }">
-        <td>{{ feature.type }}</td>
-        <td>{{ feature.le }}</td>
-        <td>{{ feature.properties.name }}</td>
-        <td>
-          <i class="fa fa-menu"></i>
-        </td>
-      </tr>
-    </table>
+  <div *ngIf="!show_map">
+    <label style="color: gray">
+      {{ appService.featureCollection.type}}
+      <span class="badge badge-info">
+        {{appService.searchFeatures('FEATURE',
+        appService.searchFeatures('NAME',
+        appService.searchFeatures('GEOMETRY',
+        appService.searchFeatures('LEVEL',appService.featureCollection.features)))).length}}
+      </span>
+      out of
+      <span class="badge badge-info">
+        {{appService.featureCollection.features.length}}
+      </span>
+      &nbsp;
+      <span>
+        <i class="fa fa-map" ngbTooltip="Trace this file on Map" placement="bottom" (click)="updateShowMap()"></i>
+      </span>
+    </label>
+    <br>
+    <div class="card">
+      <table class="table table-hover">
+        <tr>
+          <th>Feature Type</th>
+          <th>Level</th>
+          <th>Name</th>
+          <th>Geometry Type</th>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" class="form-control" placeholder="Type Feature name..." [value]="appService._search_keyword_feature_type"
+              (input)="appService.updateFeatureTypeInput($event)">
+          </td>
+          <td>
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-light" style="opacity: 0.4" id="dropdownBasic1" ngbDropdownToggle>{{appService._search_keyword_level}}</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button *ngIf="appService._search_keyword_level != 'All'" class="dropdown-item" (click)="appService.updateLevelInput('All')">All</button>
+                <button *ngIf="appService._search_keyword_level != 'Country'" class="dropdown-item" (click)="appService.updateLevelInput('Country')">Country</button>
+                <button *ngIf="appService._search_keyword_level != 'Region'" class="dropdown-item" (click)="appService.updateLevelInput('Region')">Region</button>
+                <button *ngIf="appService._search_keyword_level != 'Council'" class="dropdown-item" (click)="appService.updateLevelInput('Council')">Council</button>
+                <button *ngIf="appService._search_keyword_level != 'Facility'" class="dropdown-item" (click)="appService.updateLevelInput('Facility')">Facility</button>
+              </div>
+            </div>
+          </td>
+          <td>
+            <input type="text" class="form-control" placeholder="Type Organisation Unit Name..." [value]="appService._search_keyword_name"
+              (input)="appService.updateNameInput($event)">
+          </td>
+          <td>
+            <input type="text" class="form-control" placeholder="Type Geometry Type..." [value]="appService._search_keyword_geometry_type"
+              (input)="appService.updateGeometryTypeInput($event)">
+          </td>
+        </tr>
+        <tr *ngFor="let feature of appService.searchFeatures('FEATURE',
+                                     appService.searchFeatures('NAME',
+                                     appService.searchFeatures('GEOMETRY',
+                                     appService.searchFeatures('LEVEL',appService.featureCollection.features)))) | paginate: {itemsPerPage: 20, currentPage: p }">
+          <td>{{ feature.type }}</td>
+          <td>{{ appService.getOrganisationUnitLevelName(feature.le)}}</td>
+          <td>{{ feature.properties.name }}</td>
+          <td>{{ feature.geometry.type }}</td>
+        </tr>
+      </table>
+    </div>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
-  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+<div *ngIf="show_map">
+  &nbsp;
+  <span>
+    <i class="fa fa-file" ngbTooltip="View File Contents" placement="bottom" (click)="updateShowMap()"></i>
+  </span>
+  <app-map></app-map>
 </div>
 
 <div *ngIf="!appService.featureCollection">

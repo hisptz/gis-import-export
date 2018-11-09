@@ -47,13 +47,33 @@ export class ResultsComponent implements OnInit {
     })
 
     if (this.fileFeatureCollection != null) {
-
-      console.log('ORGANISATION-UNITS: ', this.organisationUnits)
-
+      
       this.fileFeatureCollection.features.forEach(feature => {
+        let results = this.match(this.appService.apiResult, feature.properties.name, 'name')
+        switch (results.length) {
+          case 0:
+            this.matchResultsSummary = {
+              ...this.matchResultsSummary,
+              unmatched: this.matchResultsSummary.unmatched + 1
+            }
+            break
+          case 1:
+            this.matchResultsSummary = {
+              ...this.matchResultsSummary,
+              matched: this.matchResultsSummary.matched + 1
+            }
+            break
+          default:
+            this.matchResultsSummary = {
+              ...this.matchResultsSummary,
+              duplicates: this.matchResultsSummary.duplicates + 1
+            }
+
+        }
+        
         this.matchResults.push({
           'feature': feature,
-          'results': this.match(this.appService.apiResult, feature.properties.name, 'name')
+          'results': results
         })
       })
 
@@ -61,31 +81,6 @@ export class ResultsComponent implements OnInit {
 
     }
   }
-
-  onlyUnique(value, index, self) {
-    return self.indexOf(value) == index
-  }
-
-  /*match(contents: any[], target: string, key: string) {
-    let results = []
-    contents.forEach(content => {
-      if (content[key] == target) {
-        results.push({ 'message': 'Found' })
-      }
-    });
-
-    return results
-  }*/
-
-  getOrganisationUnitNames() {
-    let names = []
-    this.organisationUnits.forEach(organisationUnit => {
-      names.push(organisationUnit.name)
-    })
-    return names
-  }
-
-
 
   match(contents, target, scheme) {
 
@@ -113,22 +108,10 @@ export class ResultsComponent implements OnInit {
   getMatchDescription(matches: any[]) {
     switch (matches.length) {
       case 0:
-        this.matchResultsSummary = {
-          ...this.matchResultsSummary,
-          matched: this.matchResultsSummary.unmatched + 1
-        }
         return 'UNMATCHED'
       case 1:
-        this.matchResultsSummary = {
-          ...this.matchResultsSummary,
-          matched: this.matchResultsSummary.matched = this.matchResultsSummary.matched + 1
-        }
         return 'MATCHED'
       default:
-        this.matchResultsSummary = {
-          ...this.matchResultsSummary,
-          duplicates: this.matchResultsSummary.duplicates + 1
-        }
         return 'POSSIBLE (' + matches.length + ')'
     }
   }
@@ -141,39 +124,6 @@ export class ResultsComponent implements OnInit {
         return 'badge badge-success'
       default:
         return 'badge badge-warning'
-    }
-  }
-
-
-
-  getResultsSummary(target: string) {
-    switch (target) {
-      case 'TOTAL':
-        return this.matchResults.length
-      case 'MATCHED':
-        let matchCount = 0
-        this.matchResults.forEach(macthResult => {
-          if (macthResult.length == 1) {
-            matchCount++
-          }
-        })
-        return matchCount
-      case 'DUPLICATES':
-        let duplicateCount = 0
-        this.matchResults.forEach(macthResult => {
-          if (macthResult.length > 1) {
-            duplicateCount++
-          }
-        })
-        return duplicateCount
-      case 'UNMATCHED':
-        let unMatchedCount = 0
-        this.matchResults.forEach(macthResult => {
-          if (macthResult.length == 0) {
-            unMatchedCount++
-          }
-        })
-        return unMatchedCount
     }
   }
 

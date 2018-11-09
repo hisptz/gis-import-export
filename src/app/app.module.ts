@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule, Routes } from '@angular/router'
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 
 import { AppComponent } from './app.component';
 import { GlobalMenuComponent } from './global-menu/global-menu.component';
@@ -16,6 +17,7 @@ import { OptionsComponent } from './options/options.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { FileContentsComponent } from './file-contents/file-contents.component';
 import { OrgUnitsComponent } from './org-units/org-units.component';
+
 
 const routes: Routes = [
   {
@@ -34,6 +36,10 @@ const routes: Routes = [
   {
     path: 'matcher',
     component: MatcherComponent
+  },
+  {
+    path: 'map',
+    component: MapComponent
   }
 ]
 
@@ -56,7 +62,8 @@ const routes: Routes = [
     BrowserAnimationsModule,
     NgbModule,
     NgxPaginationModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    AgmCoreModule.forRoot({ apiKey: '' }),
 
   ],
   providers: [],
