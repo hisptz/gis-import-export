@@ -81,12 +81,12 @@
               <!--{{organisationUnit.children.length}}-->
               <i class='fa fa-plus-square' placement="bottom" ngbTooltip="{{getChildrenString(organisationUnit)}}"
                 (click)="openChildrenModal('Helllloooo')"></i>
-            
+
 
             </span>
 
             <ul class="org-unit-child" *ngIf="organisationUnit.children.length>0">
-              <li *ngFor="let child of organisationUnit.children" hidden >
+              <li *ngFor="let child of organisationUnit.children" hidden>
                 {{child.name}}
               </li>
             </ul>

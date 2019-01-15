@@ -1,6 +1,6 @@
 <input type="file" id="btn-file-upload-old" (change)="setChosenFileName($event);onFileUpload($event)" accept="{{accept}}"
   hidden>
-<button class="btn btn-sm" id="btn-file-upload-new" title="{{btnFileUploadTitle}}" (click)="tranferFileUploadClickEvent()" [routerLink]="['fileContents']">
+<button class="btn btn-sm" id="btn-file-upload-new" title="{{btnFileUploadTitle}}" (click)="tranferFileUploadClickEvent($event)" [routerLink]="['fileContents']">
   <i class="fa fa-upload"></i>
 </button>
 <span id="chosen-file-name">

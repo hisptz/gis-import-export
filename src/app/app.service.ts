@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http'
 //Organisation Units API
 const ORGANISATION_UNITS_API_FIELDS = ['id', 'code', 'name', 'shortName', 'level', 'children[name]']
 const ORG_UNIT_API = '../../../api/organisationUnits.json?fields=' + ORGANISATION_UNITS_API_FIELDS.join(',')
-
+const INNER_ORG_UNIT_API =  '../../../../../organisationUnits.json?fields=' + ORGANISATION_UNITS_API_FIELDS.join(',')
 //For Match Results
 const STATUS_MATCHED = 'Matched'
 const STATUS_UNMATCHED = 'Unmatched'
@@ -54,7 +54,7 @@ export class AppService implements OnInit {
       const startAt = response.pager.page + 1;
       const pageCount = response.pager.pageCount;
       for (let i = startAt; i <= pageCount; i++) {
-        this.http.get(ORG_UNIT_API + '&page=' + i).subscribe((response_2: any) => {
+        this.http.get(+'../'+INNER_ORG_UNIT_API + '&page=' + i).subscribe((response_2: any) => {
           // tslint:disable-next-line:no-shadowed-variable
           response_2.organisationUnits.forEach(element => {
             this.apiResult.push(element);
@@ -72,7 +72,7 @@ export class AppService implements OnInit {
 
   //Get load Progress
   getLoadProgress() {
-    return (this.apiResult.length / this.dataCount).toFixed(2)
+    return parseFloat((this.apiResult.length / this.dataCount).toFixed(2))
   }
 
   //Counts Organisation Units

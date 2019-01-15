@@ -8,15 +8,15 @@ import { AppService } from '../app.service'
 })
 export class FileUploaderComponent implements OnInit {
 
-  private extensions = ['.json', '.gml', '.kml']
+  public extensions = ['.json', '.gml', '.kml']
 
-  private accept = '.json,.gml,.kml'
+  public accept = '.json,.gml,.kml'
 
-  private fileNamePlaceHolder = 'No GeoSpatial File Chosen!'
+  public fileNamePlaceHolder = 'No GeoSpatial File Chosen!'
 
   public fileContentsObject: any
 
-  private btnFileUploadTitle = 'Allowed extensions are ' + this.accept
+  public btnFileUploadTitle = 'Allowed extensions are ' + this.accept
 
 
   constructor(private appService: AppService) { }

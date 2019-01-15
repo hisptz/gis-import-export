@@ -8,15 +8,16 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class OrgUnitsComponent implements OnInit {
 
-  private _search_keyword_code = ''
-  private _search_keyword_name = ''
-  private _search_keyword_short_name = ''
-  private _search_keyword_level = 'All'
+  public _search_keyword_code = ''
+  public _search_keyword_name = ''
+  public _search_keyword_short_name = ''
+  public _search_keyword_level = 'All'
 
   private _row_count = 0
+  public p:any
 
 
-  constructor(private appService: AppService, private modalServie:NgbModal) { }
+  constructor(public appService: AppService, public modalServie:NgbModal) { }
 
   ngOnInit() {
   }

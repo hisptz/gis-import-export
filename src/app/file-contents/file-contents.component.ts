@@ -9,19 +9,23 @@ import { AppService } from '../app.service'
 export class FileContentsComponent implements OnInit {
 
 
-  private show_map = false
+  public show_map = false
 
-  constructor(private appService: AppService) { }
+  constructor(public appService: AppService) { }
 
   ngOnInit() {
   }
 
   updateShowMap() {
+    alert("Development is still in progress")
+    return
     if (this.show_map) {
       this.show_map = false
     } else {
       this.show_map = true
     }
   }
+
+
 
 }
