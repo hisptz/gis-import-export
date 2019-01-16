@@ -1,27 +1,34 @@
-# GisImportExport
+# Gis Import Export
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.2.
+```
+GIS Import Export is a client side web application that uses information from Shape files to extract coordinates to be tied to DHIS2 Organisation Units.
 
-## Development server
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```
 
-## Code scaffolding
+Current Version is: 1.0.0-alpha
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```
 
-## Build
+## Features Currently Supported
+* Support for extracting features from Geojson shape file
+* Support for Matching shape file features against DHIS2 Organisation Units using name as Default Match Scheme
+* Support for determining Features that have: **Exactly Matched DHIS2 Organisation Units**, **Duplicate Matches** and **Found no Matched**
+* Support for Searching and Filtering Organisation Units, Features and Match results based on various attributes such as **name**, **code**, **level** and **Feature Type**
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Application Flow
 
-## Running unit tests
+```
+When fully lunched, Organisation Units loaded from DHIS2 will be viewed,
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+A geospatial file, currently Geojson will have to be uploaded and file contents
+will immediately be displayed
 
-## Running end-to-end tests
+To see Match Results, select Match Results from side navigation menu
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```
 
-## Further help
+Application can be accessed from [here](https://play.dhis2.org/2.29/api/apps/GIS-Import-Export/index.html)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+

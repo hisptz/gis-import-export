@@ -21,14 +21,14 @@ export interface MatchResultsSummary {
 
 export class ResultsComponent implements OnInit {
 
-  private matchResults = []
-  private fileFeatureCollection: any
-  private organisationUnits: any[]
-  private matchResultsSummary: MatchResultsSummary
+  public matchResults = []
+  public fileFeatureCollection: any
+  public organisationUnits: any[]
+  public matchResultsSummary: MatchResultsSummary
 
 
 
-  constructor(private appService: AppService, private http: HttpClient) { }
+  constructor(public appService: AppService, public http: HttpClient) { }
 
   ngOnInit() {
     this.matchResultsSummary = {

@@ -12,7 +12,7 @@ export class FileUploaderComponent implements OnInit {
 
   public accept = '.json,.gml,.kml'
 
-  public fileNamePlaceHolder = 'No GeoSpatial File Chosen!'
+  public fileNamePlaceHolder = 'No geospatial file chosen!'
 
   public fileContentsObject: any
 

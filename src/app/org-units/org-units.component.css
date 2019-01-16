@@ -1,3 +1,13 @@
 .search-box{
     background: url('../../assets/images/ic-search.png')
 }
+
+html,
+table,
+label, 
+input,
+p{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.899em
+}
+

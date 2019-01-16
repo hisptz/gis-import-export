@@ -1,4 +1,7 @@
 .app-title{
     font-weight: bold;
-    color: gray
+    color: gray;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 10px; margin-left: 10px
 }
+

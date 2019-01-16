@@ -14,6 +14,9 @@ export class AppComponent {
 
   private testMessage = 'Sample Testing Message';
 
+  //Application Version
+  public appVersion = "1.0.0-alpha";
+
   constructor(private modalService: NgbModal) { }
 
   open(content) {

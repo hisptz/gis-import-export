@@ -21,5 +21,7 @@
 }
 
 #chosen-file-name{
-    color: gray
+    color: gray;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1em
 }
