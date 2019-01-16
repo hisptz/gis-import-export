@@ -38,8 +38,9 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-proxy-config.json
-manifest.wbapp
-*.json
+/proxy-config.json
+/manifest.wbapp
+/*.json
+!spec/*.json
 
 
