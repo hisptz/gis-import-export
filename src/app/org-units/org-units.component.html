@@ -4,7 +4,7 @@
     &nbsp;
     <b>|</b>
     &nbsp;
-    <label style="font-family: Verdana, Geneva, Tahoma, sans-serif">Displaying <span class="badge badge-info" >{{
+    <label style="font-family: Verdana, Geneva, Tahoma, sans-serif">Displaying <span class="badge badge-info">{{
         search('NAME',
         search('CODE',
         search('SHORT_NAME',
@@ -56,14 +56,15 @@
           </td>
         </tr>
       </thead>
-      <tbody id="table-body">
-        <tr *ngFor="let organisationUnit of search('NAME',
-           search('CODE',
-           search('SHORT_NAME',
-           search('LEVEL',appService.getOrganisationUnits())
-           )
-           )) 
-           | paginate: {itemsPerPage: 20, currentPage: p }">
+
+      <tbody *ngFor="let organisationUnit of search('NAME',
+      search('CODE',
+      search('SHORT_NAME',
+      search('LEVEL',appService.getOrganisationUnits())
+      )
+      )) 
+      | paginate: {itemsPerPage: 20, currentPage: p }">
+        <tr>
           <td>
             {{ organisationUnit.code}}
           </td>
@@ -77,26 +78,35 @@
             {{appService.getOrganisationUnitLevelName(organisationUnit.level)}}
           </td>
           <td>
-            <span *ngIf="organisationUnit.children.length>0">
+            <span *ngIf="organisationUnit.level < 4">
               <!--{{organisationUnit.children.length}}-->
               <i class='fa fa-plus-square' placement="bottom" ngbTooltip="{{getChildrenString(organisationUnit)}}"
-                (click)="openChildrenModal('Helllloooo')"></i>
-
-
+                (click)="appService.getChildren(organisationUnit.id); appService.updateChildrenDisplay(organisationUnit.id,$event)"></i>
             </span>
 
-            <ul class="org-unit-child" *ngIf="organisationUnit.children.length>0">
-              <li *ngFor="let child of organisationUnit.children" hidden>
-                {{child.name}}
-              </li>
-            </ul>
-
-            <label *ngIf="organisationUnit.children.length == 0" placement="bottom" ngbTooltip="No Children to show">
+            <label *ngIf="organisationUnit.level == 4" placement="bottom" ngbTooltip="No Children to show">
               <i class="fa fa-minus-square"></i>
             </label>
           </td>
         </tr>
+        <!--Children-->
+        <ng-container>
+          <tr style="background-color: lavender; border-radius: 10px" *ngFor="let child of appService.getChildren(organisationUnit.id)"  class="{{organisationUnit.id}}" hidden>
+
+            <td>{{child.code}}</td>
+            <td>{{child.name}}</td>
+            <td>{{child.shortName}}</td>
+            <td>{{appService.getOrganisationUnitLevelName(child.level)}}</td>
+            <td>
+
+            </td>
+
+          </tr>
+        </ng-container>
       </tbody>
+
+
+
     </table>
   </div>
   <pagination-controls (pageChange)="p = $event"></pagination-controls>

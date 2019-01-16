@@ -1,10 +1,13 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
+import { MouseEvent } from '@agm/core';
 
 //Organisation Units API
-const ORGANISATION_UNITS_API_FIELDS = ['id', 'code', 'name', 'shortName', 'level', 'children[name]']
+const ORGANISATION_UNITS_API_FIELDS = ['id', 'parent', 'code', 'name', 'shortName', 'level', 'children["id",code","name","shortName","level"']
+const ORGANISATION_UNITS_BASE_API_FIELDS = ['id', 'code', 'name', 'shortName', 'level']
+const ORG_UNIT_BASE_API = '../../../api/organisationUnits.json'
 const ORG_UNIT_API = '../../../api/organisationUnits.json?fields=' + ORGANISATION_UNITS_API_FIELDS.join(',')
-const INNER_ORG_UNIT_API =  '../../../../../organisationUnits.json?fields=' + ORGANISATION_UNITS_API_FIELDS.join(',')
+const INNER_ORG_UNIT_API = '../../../../../organisationUnits.json?fields=' + ORGANISATION_UNITS_API_FIELDS.join(',')
 //For Match Results
 const STATUS_MATCHED = 'Matched'
 const STATUS_UNMATCHED = 'Unmatched'
@@ -24,6 +27,9 @@ export class AppService implements OnInit {
   public count = 0
   //Organisation Unit api
   public organisationUnitsApi: string
+  
+
+  public show = false
 
   //For Searching
   private _search_keyword_code = ''
@@ -54,7 +60,7 @@ export class AppService implements OnInit {
       const startAt = response.pager.page + 1;
       const pageCount = response.pager.pageCount;
       for (let i = startAt; i <= pageCount; i++) {
-        this.http.get(+'../'+INNER_ORG_UNIT_API + '&page=' + i).subscribe((response_2: any) => {
+        this.http.get(+'../' + ORG_UNIT_API + '&page=' + i).subscribe((response_2: any) => {
           // tslint:disable-next-line:no-shadowed-variable
           response_2.organisationUnits.forEach(element => {
             this.apiResult.push(element);
@@ -228,8 +234,32 @@ export class AppService implements OnInit {
       default:
         return results
     }
+  }
 
+  //Fetched Child Organisation Unit given parent UID
+  getChildren(parentId: string) {
+    let children = []
+    this.apiResult.forEach(function (orgUnit) {
+      if (orgUnit.level != 1 && orgUnit.parent.id == parentId) {
+        children.push(orgUnit)
+      }
+    })
+    return children
+  }
 
+  updateChildrenDisplay(parentId:string,event:any){
+    let childRows = document.getElementsByClassName(parentId)
+    for (let count=0; count<childRows.length; count++){
+     if (childRows[count].hasAttribute('hidden')){
+      childRows[count].removeAttribute('hidden')
+      event.target.removeAttribute('class')
+      event.target.setAttribute('class','fa fa-minus-square')
+     } else{
+       childRows[count].setAttribute('hidden','')
+       event.target.removeAttribute('class')
+       event.target.setAttribute('class','fa fa-plus-square')
+     }
+    }
   }
 }
 
