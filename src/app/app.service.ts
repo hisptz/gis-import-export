@@ -27,7 +27,7 @@ export class AppService implements OnInit {
   public count = 0
   //Organisation Unit api
   public organisationUnitsApi: string
-  
+
 
   public show = false
 
@@ -247,19 +247,40 @@ export class AppService implements OnInit {
     return children
   }
 
-  updateChildrenDisplay(parentId:string,event:any){
+  //Shows and Hides low Level Org Units whose parent id is @parentId
+  updateChildrenDisplay(parentId: string, event: any) {
     let childRows = document.getElementsByClassName(parentId)
-    for (let count=0; count<childRows.length; count++){
-     if (childRows[count].hasAttribute('hidden')){
-      childRows[count].removeAttribute('hidden')
-      event.target.removeAttribute('class')
-      event.target.setAttribute('class','fa fa-minus-square')
-     } else{
-       childRows[count].setAttribute('hidden','')
-       event.target.removeAttribute('class')
-       event.target.setAttribute('class','fa fa-plus-square')
-     }
+    for (let count = 0; count < childRows.length; count++) {
+      if (childRows[count].hasAttribute('hidden')) {
+        //Show
+        childRows[count].removeAttribute('hidden')
+        event.target.removeAttribute('class')
+        event.target.setAttribute('class', 'fa fa-minus-square')
+      } else {
+        //Hide
+        childRows[count].setAttribute('hidden', '')
+        event.target.removeAttribute('class')
+        event.target.setAttribute('class', 'fa fa-plus-square')
+      }
+    }
+    
+  }
+
+  //Collapses all Child Org Units when parent Row is collapsed
+  collapseAll(parentId: String) {
+    alert('It works')
+    return
+    for (let childCount = 0; childCount < this.apiResult.length; childCount++) {
+      if (this.apiResult[childCount].parent.id == parentId) {
+        let childId = this.apiResult[childCount].id
+        let rowsToHide = document.getElementsByClassName(childId)
+        for (let rowCount = 0; rowCount < rowsToHide.length; rowCount++) {
+          rowsToHide[rowCount].setAttribute('hidden', '')
+        }
+      }
     }
   }
+
+  
 }
 

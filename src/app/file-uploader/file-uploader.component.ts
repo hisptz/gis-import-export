@@ -64,9 +64,7 @@ export class FileUploaderComponent implements OnInit {
           //console.log(this.fileContentsObject)
           this.appService.featureCollection = this.fileContentsObject
 
-          this.appService.getOrganisationUnits().forEach(organisationUnit => {
-            console.log(organisationUnit.name)
-          })
+          
 
           //this.fileContentsObject.features.forEach(feature => {
           //  this.appService.getOrganisationUnits().forEach(organisationUnit => {

@@ -89,9 +89,9 @@
             </label>
           </td>
         </tr>
-        <!--Children First Drill-->
+        <!--First Drill-->
         <ng-container *ngFor="let child of appService.getChildren(organisationUnit.id)">
-          <tr style="background-color: lavender; border-radius: 10px" class="{{organisationUnit.id}}" hidden>
+          <tr style="background-color: #90CAF9; border-radius: 10px" class="{{organisationUnit.id}}" hidden>
 
             <td>{{child.code}}</td>
             <td>{{child.name}}</td>
@@ -100,17 +100,18 @@
             <td>
               <span *ngIf="child.level < 4">
                 <!--{{organisationUnit.children.length}}-->
-                <i class='fa fa-plus-square' placement="bottom" ngbTooltip="{{getChildrenString(child)}}" (click)="appService.getChildren(child.id); appService.updateChildrenDisplay(child.id,$event)"></i>
+                <i class='fa fa-plus-square btn-first-drill' placement="bottom" ngbTooltip="{{getChildrenString(child)}}"
+                  (click)="appService.getChildren(child.id); appService.updateChildrenDisplay(child.id,$event)"></i>
               </span>
               <label *ngIf="child.level == 4" placement="bottom" ngbTooltip="No Children to show">
                 <i class="fa fa-minus-square"></i>
               </label>
             </td>
           </tr>
-          <!--Children Second Drill-->
+          <!--Second Drill-->
           <ng-container *ngIf="child.level < 4">
             <ng-container *ngFor="let subChild of appService.getChildren(child.id)">
-              <tr style="background:gray" class="{{child.id}}" hidden>
+              <tr style="background:#BBDEFB" class="{{child.id}}" hidden>
                 <td>{{subChild.code}}</td>
                 <td>{{subChild.name}}</td>
                 <td>{{subChild.shortName}}</td>
@@ -118,7 +119,7 @@
                 <td>
                   <span *ngIf="subChild.level < 4">
                     <!--{{organisationUnit.children.length}}-->
-                    <i class='fa fa-plus-square' placement="bottom" ngbTooltip="{{getChildrenString(subChild)}}"
+                    <i class='fa fa-plus-square btn-second-drill' placement="bottom" ngbTooltip="{{getChildrenString(subChild)}}"
                       (click)="appService.getChildren(subChild.id); appService.updateChildrenDisplay(subChild.id,$event)"></i>
                   </span>
                   <label *ngIf="subChild.level == 4" placement="bottom" ngbTooltip="No Children to show">
@@ -127,10 +128,10 @@
                 </td>
               </tr>
 
-              <!--Children Third Drill-->
+              <!--Third Drill-->
               <ng-container *ngIf="subChild.level < 4">
                 <ng-container *ngFor="let thirdChild of appService.getChildren(subChild.id)">
-                  <tr style="background: orange" class="{{subChild.id}}" hidden>
+                  <tr style="background: #E3F2FD" class="{{subChild.id}}" hidden>
                     <td>{{thirdChild.code}}</td>
                     <td>{{thirdChild.name}}</td>
                     <td>{{thirdChild.shortName}}</td>
@@ -138,7 +139,7 @@
                     <td>
                       <span *ngIf="thirdChild.level < 4">
                         <!--{{organisationUnit.children.length}}-->
-                        <i class='fa fa-plus-square' placement="bottom" ngbTooltip="{{getChildrenString(thirdChild)}}"
+                        <i class='fa fa-plus-square btn-third-drill' placement="bottom" ngbTooltip="{{getChildrenString(thirdChild)}}"
                           (click)="appService.getChildren(thirdChild.id); appService.updateChildrenDisplay(third.id,$event)"></i>
                       </span>
                       <label *ngIf="thirdChild.level == 4" placement="bottom" ngbTooltip="No Children to show">
@@ -148,10 +149,7 @@
                   </tr>
                 </ng-container>
               </ng-container>
-
             </ng-container>
-
-
           </ng-container>
         </ng-container>
       </tbody>

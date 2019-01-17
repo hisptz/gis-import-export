@@ -47,7 +47,7 @@ export class ResultsComponent implements OnInit {
     })
 
     if (this.fileFeatureCollection != null) {
-      
+
       this.fileFeatureCollection.features.forEach(feature => {
         let results = this.match(this.appService.apiResult, feature.properties.name, 'name')
         switch (results.length) {
@@ -70,11 +70,16 @@ export class ResultsComponent implements OnInit {
             }
 
         }
-        
+
+      
+
         this.matchResults.push({
           'feature': feature,
           'results': results
         })
+
+        console.log('RESULTS: ',results)
+
       })
 
       this.matchResultsSummary.total = this.matchResults.length
@@ -130,4 +135,15 @@ export class ResultsComponent implements OnInit {
   getMoreOptions() {
     alert('Implementation is still on Progress')
   }
+
+  //Expands and Collapses Result Details Row
+  viewDetails(resultsId: string) {
+    let detailsRow = document.getElementById(resultsId)
+    if (detailsRow.hasAttribute('hidden')) {
+      detailsRow.removeAttribute('hidden')
+    } else {
+      detailsRow.setAttribute('hidden', '')
+    }
+  }
+
 }

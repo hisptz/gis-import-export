@@ -2,9 +2,6 @@
 
   <!--ngb-alert [dismissible]="false" [type]="'success'" style="height: 50px"></ngb-alert-->
 
-
-
-
   <label style="color: gray">Results Summary per GIS <b>-</b> DHIS Organisation Units Mapping</label>
   <p style="color: gray">
     Total: <label class="badge badge-info">{{ matchResults.length}}</label>
@@ -16,21 +13,21 @@
     Unmatched: <label class="badge badge-danger">{{ matchResultsSummary.unmatched}}</label>
 
     &nbsp;
-    
+
     <b>|</b>
 
     &nbsp;
 
     Displaying
-    {{  
-     appService.searchResults('NAME',
-     appService.searchResults('LEVEL',
-     appService.searchResults('MATCH_STATUS',
-     matchResults
-     ))).length 
-     }}
+    {{
+    appService.searchResults('NAME',
+    appService.searchResults('LEVEL',
+    appService.searchResults('MATCH_STATUS',
+    matchResults
+    ))).length
+    }}
 
-     Out of  {{matchResults.length}}
+    Out of {{matchResults.length}}
 
   </p>
 
@@ -75,26 +72,68 @@
           </div>
         </td>
       </tr>
-      <tr *ngFor="let matchResult of appService.searchResults('NAME',
-                      appService.searchResults('LEVEL',
-                      appService.searchResults('MATCH_STATUS',
-                      matchResults
-                      )))  | paginate: {itemsPerPage: 20, currentPage: p }">
-        <td>
-          {{matchResult.feature.properties.name}}
-        </td>
-        <td>
-          {{appService.getOrganisationUnitLevelName(matchResult.feature.le)}}
-        </td>
-        <td>
-          <div class="{{getMatchClass(matchResult.results)}}">
-            {{getMatchDescription(matchResult.results)}}
-          </div>
-        </td>
-        <td>
-          <i class="fa fa-ellipsis-v" style="font-size: 1.2em" placement="bottom" ngbTooltip="More Options" style="cursor: pointer"></i>
-        </td>
-      </tr>
+
+      <tbody *ngFor="let matchResult of appService.searchResults('NAME',
+      appService.searchResults('LEVEL',
+      appService.searchResults('MATCH_STATUS',
+      matchResults
+      )))  | paginate: {itemsPerPage: 20, currentPage: p }">
+        <tr (click)="viewDetails(matchResult.feature.properties.id)">
+          <td>
+            {{matchResult.feature.properties.name}}
+          </td>
+          <td>
+            {{appService.getOrganisationUnitLevelName(matchResult.feature.le)}}
+          </td>
+          <td>
+            <div class="{{getMatchClass(matchResult.results)}}">
+              {{getMatchDescription(matchResult.results)}}
+            </div>
+          </td>
+          <td>
+            <i class="fa fa-ellipsis-v" style="font-size: 1.2em" placement="bottom" ngbTooltip="More Options" style="cursor: pointer"
+              (click)="getMoreOptions()"></i>
+          </td>
+        </tr>
+        <!--Details Row-->
+        <tr id="{{matchResult.feature.properties.id}}" hidden>
+          <td colspan="4">
+
+            <!--Perfect Match-->
+            <ng-container *ngIf="getMatchDescription(matchResult.results) == 'MATCHED'">
+              <ngb-alert type="success" [dismissible]="false">
+                <span> <i class="fa fa-check"></i> &nbsp; </span> <strong>Has a perfect Match</strong>
+              </ngb-alert>
+            </ng-container>
+
+            <!--Duplicates-->
+            <ng-container *ngIf="getMatchDescription(matchResult.results).includes('POSSIBLE')">
+              <ngb-alert [dismissible]="false">
+                <span> <i class="fa fa-exclamation-circle"></i> &nbsp; </span> <strong>Has {{ matchResult.results.length }} Duplicates</strong>
+              </ngb-alert>
+
+              <!--Testing-->
+              <ul>
+                <li *ngFor="let result of matchResult.results ">
+                  {{result.item.name}}
+                </li>
+              </ul>
+
+            </ng-container>
+
+            <!--Unmatched-->
+            <ng-container *ngIf="getMatchDescription(matchResult.results) == 'UNMATCHED'">
+              <ngb-alert type='danger' [dismissible]="false">
+                <span> <i class="fa fa-times"></i> &nbsp; </span> <strong>Has Duplicates</strong>
+              </ngb-alert>
+            </ng-container>
+
+
+          </td>
+        </tr>
+
+      </tbody>
+
     </table>
   </div>
   <pagination-controls (pageChange)="p = $event"></pagination-controls>
