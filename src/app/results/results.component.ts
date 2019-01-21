@@ -78,7 +78,7 @@ export class ResultsComponent implements OnInit {
           'results': results
         })
 
-        console.log('RESULTS: ',results)
+        //console.log('RESULTS: ',results)
 
       })
 
@@ -144,6 +144,21 @@ export class ResultsComponent implements OnInit {
     } else {
       detailsRow.setAttribute('hidden', '')
     }
+  }
+
+  //Reads selected Match out of listed possibilities
+  readMatch(event){
+    let selectedChekBotton = event.target
+    let possibleList = selectedChekBotton.parentElement.parentElement.parentElement
+    let checkBoxCollection = possibleList.getElementsByTagName('input')
+
+    for (let count = 0; count<checkBoxCollection.length; count++){
+      let currentCheckBox = checkBoxCollection[count]
+      if (currentCheckBox.checked == true && currentCheckBox != selectedChekBotton){
+        currentCheckBox.checked = false
+      }
+    }
+    console.log(selectedChekBotton.id)
   }
 
 }

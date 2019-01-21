@@ -116,6 +116,16 @@
               <ul>
                 <li *ngFor="let result of matchResult.results ">
                   {{result.item.name}}
+                  |
+                  <span class="badge badge-info">
+                    {{ appService.getOrganisationUnitLevelName(result.item.level)}}
+                  </span>
+
+                  &nbsp;&nbsp;
+
+                  <span>
+                    <input type="checkbox" name="{{matchResult.feature.properties.name}}" (change)="readMatch($event)" id="{{result.item.id}}" >
+                  </span>
                 </li>
               </ul>
 
