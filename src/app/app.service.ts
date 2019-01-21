@@ -281,6 +281,16 @@ export class AppService implements OnInit {
     }
   }
 
+  //Finds an Organisation Unit from the collection given its uid
+  findOrganisationUnit(uid:string){
+    return this.apiResult.filter(orgUnit => orgUnit.id == uid)
+  }
+
+  //Finds Organisation Unit from file given its uid
+  findOrgUnitFromFile(uid:string){
+    return this.featureCollection
+  }
+
   
 }
 

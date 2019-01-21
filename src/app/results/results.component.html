@@ -113,21 +113,35 @@
               </ngb-alert>
 
               <!--Testing-->
-              <ul>
-                <li *ngFor="let result of matchResult.results ">
-                  {{result.item.name}}
-                  |
-                  <span class="badge badge-info">
-                    {{ appService.getOrganisationUnitLevelName(result.item.level)}}
-                  </span>
-
-                  &nbsp;&nbsp;
-
-                  <span>
-                    <input type="checkbox" name="{{matchResult.feature.properties.name}}" (change)="readMatch($event)" id="{{result.item.id}}" >
-                  </span>
-                </li>
-              </ul>
+              
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <ul>
+                        <li *ngFor="let result of matchResult.results ">
+                          {{result.item.name}}
+                          |
+                          <span class="badge badge-info">
+                            {{ appService.getOrganisationUnitLevelName(result.item.level)}}
+                          </span>
+        
+                          &nbsp;&nbsp;
+        
+                          <span>
+                            <input type="checkbox" name="{{matchResult.feature.properties.name}}" (change)="readMatch($event)" id="{{result.item.id}}" >
+                          </span>
+                        </li>
+                      </ul>
+        
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+<div hidden>
+    <ngb-alert type="success" [dismissible]="false">
+        <span> <i class="fa fa-check"></i> &nbsp; </span> <strong></strong>
+      </ngb-alert>
+</div>
+                </div>
+              </div>
+              
 
             </ng-container>
 
