@@ -1,8 +1,8 @@
+import { Point } from './point.model';
+
 export interface Feature {
-    type: string
-    le: number
-    properties: {
-        id: string
-        name: string
-    }
+	id: string;
+	name: string;
+	type: string;
+	coordinates: Point[];
 }

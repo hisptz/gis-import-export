@@ -1,43 +1,25 @@
 import { Component } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { UploadEvent, UploadFile } from 'ngx-file-drop';
+import { TranslateService } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrls: [ './app.component.css' ]
 })
 export class AppComponent {
-  title = 'GIS Import Export';
+	constructor(private translate: TranslateService, private titleService: Title) {
+		// this language will be used as a fallback when a translation isn't found in the current language
+		this.translate.setDefaultLang('en');
 
-  closeResult: string;
+		// the lang to use, if the lang isn't available, it will use the current loader to get them
+		this.translate.use('en');
 
-  private testMessage = 'Sample Testing Message';
+		// Set application title
+		this.setTitle('GIS Import Export');
+	}
 
-  //Application Version
-  public appVersion = "1.0.0-alpha";
-
-  constructor(private modalService: NgbModal) { }
-
-  open(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  openLg(content) {
-    this.modalService.open(content, { size: 'lg', centered: true });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
+	public setTitle(newTitle: string) {
+		this.titleService.setTitle(newTitle);
+	}
 }

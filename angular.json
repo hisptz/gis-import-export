@@ -21,13 +21,12 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/manifest.webapp"
+              "src/manifest.webapp",
+              "src/manifest.json"
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/font-awesome/css/font-awesome.min.css",
-              "node_modules/ngx-draggable-widget/NgDraggableWidget.css"
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -47,14 +46,16 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true
+              "buildOptimizer": true,
+              "serviceWorker": true
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "gis-import-export:build"
+            "browserTarget": "gis-import-export:build",
+            "proxyConfig": "proxy-config.json"
           },
           "configurations": {
             "production": {
@@ -81,7 +82,8 @@
             "scripts": [],
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.json"
             ]
           }
         },
@@ -127,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "gis-import-export"
+  "defaultProject": "gis-import-export",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

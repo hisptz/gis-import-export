@@ -1,12 +1,14 @@
+
 {
-    "version": "1.0.0-alpha",
-    "name": "GIS Import Export",
+    "version": "1.0.0-alpha.1",
+    "name": "   GIS Import Export",
     "description": "GIS Import Export",
+    "appType": "APP",
     "launch_path": "index.html",
     "icons": {
-        "16": "favicon.ico",
-        "48": "favicon.ico",
-        "128": "favicon.ico"
+        "16": "assets/icons/icon-16x16.png",
+        "48": "assets/icons/icon-48x48.png",
+        "128": "assets/icons/icon-128x128.png"
     },
     "developer": {
         "name": "HISPTZ",
@@ -15,7 +17,11 @@
     "default_locale": "en",
     "activities": {
         "dhis": {
-            "href": "../../.."
+            "href": "../../../"
         }
-    }
+    },
+     "authorities": [
+         "MY_APP_ADD_NEW",
+         "MY_APP_UPDATE",
+         "MY_APP_DELETE"]
 }

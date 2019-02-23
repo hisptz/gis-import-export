@@ -13,15 +13,15 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
-  it(`should have as title 'gis-import-export'`, async(() => {
+  it(`should have as title 'ngx-seed-app'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('gis-import-export');
+    expect(app.title).toEqual('ngx-seed-app');
   }));
   it('should render title in a h1 tag', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to gis-import-export!');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to ngx-seed-app!');
   }));
 });
