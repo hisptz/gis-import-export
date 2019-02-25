@@ -1,39 +1,38 @@
-<div style="margin-top: 70px">
-  <h1 style="font-size: 40px; text-align: center">GIS Import Export</h1>
-</div>
-
 <div style="margin-left: 20px; margin-right: 20px">
-  <div class="row">
-    <div class="col-lg-6 col-md-6 col-sm-12">
-      <div class="card shadow" style="height: 250px; width: 100%">
-
-      </div>
-      
-   <br>
-
-    </div>
-    <div class="col-lg-6 col-md-6 col-sm-12">
-      <div class="card shadow" style="height: 250px; width: 100%">
-
-      </div>
-    </div>
-  
+  <div style="margin-top: 10px">
+    <h1 style="font-size:2em">GIS Import Export</h1>
   </div>
   <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12">
-      <div class="card shadow" style="height: 250px; width: 100%">
-
+      <div class="card shadow" style="height: 350px; width: 100%">
+        <label class="page-titile">Geospatial File</label>
+        <app-file-uploader></app-file-uploader>
       </div>
-      
-   <br>
 
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12">
-      <div class="card shadow" style="height: 250px; width: 100%">
-
+      <div class="card shadow" style="height: 350px; width: 100%">
+        <label class="page-titile">Map Visualization</label>
       </div>
     </div>
-  
+
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <div class="card shadow" style="height: 350px; width: 100%">
+        <!--Loaded Organisation units from DHIS-->
+        <label class="page-titile">Loaded Organisation units</label>
+        <app-org-units></app-org-units>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <div class="card shadow" style="height: 350px; width: 100%">
+        <!--Match Results-->
+        <label class="page-titile">Match Results</label>
+        <app-results></app-results>
+      </div>
+    </div>
+
   </div>
 </div>
-

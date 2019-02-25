@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+
+.page-titile {
+    margin-left: 10px;
+    font-weight: bold;
+    color: grey
+}
+
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
