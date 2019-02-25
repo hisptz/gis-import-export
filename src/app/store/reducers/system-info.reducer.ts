@@ -25,9 +25,7 @@ export interface State extends EntityState<SystemInfo> {
   error: ErrorMessage;
 }
 
-export const adapter: EntityAdapter<SystemInfo> = createEntityAdapter<
-  SystemInfo
->();
+export const adapter: EntityAdapter<SystemInfo> = createEntityAdapter<SystemInfo>();
 
 export const initialState: State = adapter.getInitialState({
   // additional entity state properties
