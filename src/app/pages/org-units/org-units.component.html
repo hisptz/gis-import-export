@@ -1,26 +1,29 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="(loaded$ | async)">
 
-    <table class="table table bordered table-min">
+    <br>
 
-      <tr>
-        <th>Code</th>
-        <th>Name</th>
-        <th>Level</th>
-        <th>Feature Type</th>
-      </tr>
+    <div class="table-container">
+      <table class="table table bordered table-min">
 
-      <tr *ngFor="let orgUnit of (orgUnits$ | async) | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-        <td>{{orgUnit.code}}</td>
-        <td>{{orgUnit.name}}</td>
-        <td>{{orgUnit.level}}</td>
-        <td>{{orgUnit.featureType}}</td>
-      </tr>
+        <tr>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Level</th>
+          <th>Feature Type</th>
+        </tr>
 
-    </table>
+        <tr *ngFor="let orgUnit of (orgUnits$ | async) | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+          <td>{{orgUnit.code}}</td>
+          <td>{{orgUnit.name}}</td>
+          <td>{{orgUnit.level}}</td>
+          <td>{{orgUnit.featureType}}</td>
+        </tr>
 
-    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="(orgUnits$ | async).length"></ngb-pagination>
+      </table>
 
+      <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="(orgUnits$ | async).length"></ngb-pagination>
+    </div>
   </div>
   <div class="col-lg-6 col-md-6 col-sm-12" *ngIf="loading$ | async">
     <img src="../../../assets/icons/balls-3.svg" alt="" srcset="" class="center">

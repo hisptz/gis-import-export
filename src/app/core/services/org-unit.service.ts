@@ -12,7 +12,7 @@ export class OrgUnitService implements OnInit {
 	ngOnInit() {}
 
 	getOrganisationUnits() {
-		let api = 'organisationUnits.json?fields=' + queryParams + '&paging=true';
+		let api = 'organisationUnits.json?fields=' + queryParams + '&paging=false';
 		return this.httpClient.get(api);
 	}
 }

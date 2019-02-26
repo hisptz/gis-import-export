@@ -92,3 +92,8 @@ div.jsoneditor-menu {
     border-color: #BDBDBD;
     color: #fff;
 }
+
+.table-container {
+    height: 300px;
+    overflow: auto
+}

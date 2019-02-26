@@ -20,7 +20,7 @@ export class OrgUnitsComponent implements OnInit {
 	private error$: Observable<ErrorMessage>;
 	private orgUnits$: Observable<OrganisationUnit[]>;
 
-	private pageSize =  6;
+	private pageSize =  80;
 	private page = 1;
 	private tableHeaders = orgUnitTableHeaders;
 
