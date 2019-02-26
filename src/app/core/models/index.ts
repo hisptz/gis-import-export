@@ -5,3 +5,4 @@ export * from './feature.model';
 export * from './match-result.model';
 export * from './point.model';
 export * from './org-unit.model';
+export * from './results-summary.model'
