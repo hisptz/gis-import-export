@@ -56,6 +56,6 @@ export const getLoading = (state: OrgUnitsState) => state.loading;
 export const getLoaded = (state: OrgUnitsState) => state.loaded;
 export const getFailed = (state: OrgUnitsState) => state.failed;
 export const getError = (state: OrgUnitsState) => state.error;
-export const getOrgUnits = (state: OrgUnitsState) => state.orgUnits
+export const getOrgUnits = (state: OrgUnitsState) => state.orgUnits;
 
 export const { selectAll: getOrgUnitsState } = adapter.getSelectors();

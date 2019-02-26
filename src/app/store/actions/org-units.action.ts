@@ -15,7 +15,9 @@ export class LoadOrgUnits implements Action {
 export class LoadOrgUnitsSuccess implements Action {
 	readonly type = OrgUnitActionTypes.LOAD_ORG_UNITS_SUCCESS;
 
-	constructor(public orgUnits: OrganisationUnit[]) {}
+	constructor(public orgUnits: OrganisationUnit[]) {
+		
+	}
 }
 
 export class LoadOrgUnitsFail implements Action {

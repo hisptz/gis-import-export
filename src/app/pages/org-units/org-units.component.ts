@@ -6,6 +6,7 @@ import { State } from '../../store/reducers';
 import { OrganisationUnit } from '../../core/models/org-unit.model';
 import { ErrorMessage } from '../../core/models/error-message.model';
 import { Observable } from 'rxjs';
+import { orgUnitTableHeaders } from '../../core/constants';
 
 @Component({
 	selector: 'app-org-units',
@@ -14,18 +15,22 @@ import { Observable } from 'rxjs';
 })
 export class OrgUnitsComponent implements OnInit {
 	private loading$: Observable<boolean>;
-	private $loaded$: Observable<boolean>;
+	private loaded$: Observable<boolean>;
 	private failed$: Observable<boolean>;
 	private error$: Observable<ErrorMessage>;
-	private orgUnits: Observable<OrganisationUnit[]>;
+	private orgUnits$: Observable<OrganisationUnit[]>;
 
-	constructor(private store$: Store<State>) {}
+	private pageSize =  6;
+	private page = 1;
+	private tableHeaders = orgUnitTableHeaders;
 
-  ngOnInit() {
+	constructor(private store$: Store<State>) {
+		this.store$.dispatch(new fromOrgUnitActions.LoadOrgUnits());
 
-    this.store$.dispatch(new fromOrgUnitActions.LoadOrgUnits())
-    
-    this.loading$ = this.store$.select(fromOrgUnitSelectors.getLoading)
+		this.loading$ = this.store$.select(fromOrgUnitSelectors.getLoading);
+		this.loaded$ = this.store$.select(fromOrgUnitSelectors.getLoaded);
+		this.orgUnits$ = this.store$.select(fromOrgUnitSelectors.getOrgUnits);
+	}
 
-  }
+	ngOnInit() {}
 }

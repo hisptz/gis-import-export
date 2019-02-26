@@ -4,14 +4,14 @@
   </div>
   <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12">
-      <div class="card shadow" style="height: 350px; width: 100%">
+      <div class="card shadow" style="height: 400px; width: 100%">
         <label class="page-titile">Geospatial File</label>
         <app-file-uploader></app-file-uploader>
       </div>
 
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12">
-      <div class="card shadow" style="height: 350px; width: 100%">
+      <div class="card shadow" style="height: 400px; width: 100%">
         <label class="page-titile">Map Visualization</label>
       </div>
     </div>
@@ -20,14 +20,23 @@
   <br>
   <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12">
-      <div class="card shadow" style="height: 350px; width: 100%">
+      <div class="card shadow" style="height: 400px; width: 100%">
         <!--Loaded Organisation units from DHIS-->
-        <label class="page-titile">Loaded Organisation units</label>
+        <div class="row">
+          <div class="col-lg-6">
+              <label class="page-titile">Loaded Organisation units </label>
+          </div>
+          <div class="col-lg-6 col-lg-offset-12">
+              <span class="pull-right">
+                <i class="glyphicon glyphicon-pencil"></i>
+              </span>
+          </div>
+        </div>
         <app-org-units></app-org-units>
       </div>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12">
-      <div class="card shadow" style="height: 350px; width: 100%">
+      <div class="card shadow" style="height: 400px; width: 100%">
         <!--Match Results-->
         <label class="page-titile">Match Results</label>
         <app-results></app-results>
