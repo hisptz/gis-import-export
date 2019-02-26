@@ -54,4 +54,5 @@ export const { selectAll: getFileState } = adapter.getSelectors();
 export const getLoading = (state: FileState) => state.loading;
 export const getLoaded = (state: FileState) => state.loaded;
 export const getFailed = (state: FileState) => state.failed;
+export const getError = (state: FileState) => state.error
 export const getFileContents = (state: FileState) => state.fileContents;
