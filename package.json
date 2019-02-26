@@ -26,6 +26,7 @@
     "@angular/service-worker": "^7.2.6",
     "@hisptz/ngx-dhis2-http-client": "^1.0.4",
     "@hisptz/ngx-dhis2-menu": "^1.0.7",
+    "@ng-bootstrap/ng-bootstrap": "^4.0.4",
     "@ngrx/effects": "^6.1.2",
     "@ngrx/entity": "^6.1.2",
     "@ngrx/router-store": "^6.1.2",
