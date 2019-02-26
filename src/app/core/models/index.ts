@@ -6,3 +6,4 @@ export * from './match-result.model';
 export * from './point.model';
 export * from './org-unit.model';
 export * from './results-summary.model'
+export * from './match-scheme.model'

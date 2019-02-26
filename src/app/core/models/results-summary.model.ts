@@ -1,6 +1,6 @@
 export interface ResultsSummary {
 	matched: number;
-	umatched: number;
+	unmatched: number;
 	duplicate: number;
 	total: number;
 }
