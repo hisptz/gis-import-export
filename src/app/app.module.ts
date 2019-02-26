@@ -31,7 +31,9 @@ import { MatcherComponent } from './pages/matcher/matcher.component';
 import { OrgUnitsComponent } from './pages/org-units/org-units.component';
 import { ResultsComponent } from './pages/results/results.component';
 import { FileContentComponent } from './pages/file-content/file-content.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgJsonEditorModule } from 'ang-jsoneditor'
+
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -46,6 +48,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RoutingModule,
     CoreModule,
     NgbModule,
+    NgJsonEditorModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot(effects),

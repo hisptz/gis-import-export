@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~jsoneditor/dist/jsoneditor.min.css';
 
 .page-titile {
     margin-left: 10px;
@@ -6,13 +6,43 @@
     color: grey
 }
 
-.center{
+.center {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 30%;
 }
 
-.table-min{
+.table-min {
     font-size: 0.8em
+}
+
+.section-contents {
+    margin-left: 10px;
+    margin-right: 10px;
+    max-height: inherit !important;
+    overflow-y: auto !important;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    z-index: 1px;
+    cursor: pointer;
+
+}
+
+.icon :hover {
+    width: 220px;
+    height: 22px;
+    z-index: 1.5px;
+}
+
+.json-editor {
+    max-height: inherit !important;
+    overflow-y: auto !important;
+}
+
+div.jsoneditor {
+    height: 310px !important;
 }
