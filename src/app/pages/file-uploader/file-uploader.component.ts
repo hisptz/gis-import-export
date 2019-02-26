@@ -13,14 +13,14 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 	styleUrls: [ './file-uploader.component.css' ]
 })
 export class FileUploaderComponent implements OnInit {
-	private loading$: Observable<boolean>;
-	private loaded$: Observable<boolean>;
-	private fileContents$: Observable<any>;
-	private failed$: Observable<boolean>;
-	private errorMessage: Observable<ErrorMessage>;
+	public loading$: Observable<boolean>;
+	public loaded$: Observable<boolean>;
+	public fileContents$: Observable<any>;
+	public failed$: Observable<boolean>;
+	public errorMessage: Observable<ErrorMessage>;
 
 	//Json Editor options
-	private jsonEditorOptions: JsonEditorOptions;
+	public jsonEditorOptions: JsonEditorOptions;
 
 	constructor(private store: Store<State>) {
 		this.loading$ = this.store.select(fromFileSelectors.getFileLoading);

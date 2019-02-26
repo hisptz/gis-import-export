@@ -1,6 +1,6 @@
 <div class="section-contents">
   <input type="file" id="input-file-upload" (change)="uploadFile($event)" accept=".json" hidden />
-  <img src="../../../assets/icons/upload.png" alt="" srcset="" class="icon" (click)="openFileChooser()" (mouseover)="showDesc()"
+  <img src="../../../assets/icons/upload.png" alt="" srcset="" class="icon" (click)="openFileChooser($event)" (mouseover)="showDesc()"
     (mouseout)="hideDesc()" ngbTooltip="Upload file">
   &nbsp;
   <span id="supported-formats-prompt" style="font-size: 0.9em; padding-top: 9px; font-weight: bold; color: gray" hidden>

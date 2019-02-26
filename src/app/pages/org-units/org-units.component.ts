@@ -14,15 +14,15 @@ import { orgUnitTableHeaders } from '../../core/constants';
 	styleUrls: [ './org-units.component.css' ]
 })
 export class OrgUnitsComponent implements OnInit {
-	private loading$: Observable<boolean>;
-	private loaded$: Observable<boolean>;
-	private failed$: Observable<boolean>;
-	private error$: Observable<ErrorMessage>;
-	private orgUnits$: Observable<OrganisationUnit[]>;
+	public loading$: Observable<boolean>;
+	public loaded$: Observable<boolean>;
+	public failed$: Observable<boolean>;
+	public error$: Observable<ErrorMessage>;
+	public orgUnits$: Observable<OrganisationUnit[]>;
 
-	private pageSize =  80;
-	private page = 1;
-	private tableHeaders = orgUnitTableHeaders;
+	public pageSize =  80;
+	public page = 1;
+	public tableHeaders = orgUnitTableHeaders;
 
 	constructor(private store$: Store<State>) {
 		this.store$.dispatch(new fromOrgUnitActions.LoadOrgUnits());
