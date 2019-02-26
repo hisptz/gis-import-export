@@ -19,7 +19,7 @@ export class LoadFileSuccess implements Action {
 
 export class LoadFileFail implements Action {
 	readonly type = FileActionTypes.LOAD_FILE_FAIL;
-	constructor(error: ErrorMessage) {}
+	constructor(public error: ErrorMessage) {}
 }
 
 export type FileActions = LoadFile | LoadFileSuccess | LoadFileFail;
