@@ -51,10 +51,23 @@ export class FileUploaderComponent implements OnInit {
 			switch (fileType) {
 				case 'json':
 					try {
+						//Prepare file object
 						let file: File = {
 							fileName: event.target.files[0].name,
 							fileContents: JSON.parse(fileReader.result.toString())
 						};
+						//Validate file
+						if (!('type' in file.fileContents) || !('features' in file.fileContents)) {
+							let errorMessage: ErrorMessage = {
+								statusCode: 406,
+								statusText: 'File not acceptable',
+								message:
+									'This file seems to be not a valid geospatial file, please choose another file!'
+							};
+							this.store.dispatch(new fromFileActions.LoadFileFail(errorMessage));
+							return;
+						}
+						//Validation ok
 						this.store.dispatch(new fromFileActions.LoadFileSuccess(file));
 					} catch (excpetion) {
 						let errorMessage: ErrorMessage = {
