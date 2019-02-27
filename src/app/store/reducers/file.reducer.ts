@@ -1,22 +1,25 @@
 import * as fromFileActions from '../actions/file.action';
-import { ErrorMessage } from '../../core/models/error-message.model';
+import {File, ErrorMessage } from '../../core/models';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
-export interface FileState extends EntityState<any> {
+export interface FileState extends EntityState<File> {
 	loading: boolean;
 	loaded: boolean;
 	failed: boolean;
-	fileContents: any;
+	file:File;
 	error: ErrorMessage;
 }
 
-export const adapter = createEntityAdapter<any>();
+export const adapter = createEntityAdapter<File>();
 
 export const initialState: FileState = adapter.getInitialState({
 	loading: false,
 	loaded: false,
 	failed: false,
-	fileContents: {},
+	file: {
+		fileName: '',
+		fileContents:{}
+	},
 	error: null
 });
 
@@ -34,7 +37,7 @@ export function reducer(state = initialState, action: fromFileActions.FileAction
 				loading: false,
 				loaded: true,
 				failed: false,
-				fileContents: action.fileContents
+				file: action.file
 			};
 		case fromFileActions.FileActionTypes.LOAD_FILE_FAIL:
 			return {
@@ -55,4 +58,6 @@ export const getLoading = (state: FileState) => state.loading;
 export const getLoaded = (state: FileState) => state.loaded;
 export const getFailed = (state: FileState) => state.failed;
 export const getError = (state: FileState) => state.error
-export const getFileContents = (state: FileState) => state.fileContents;
+export const getFile = (state: FileState) => state.file;
+export const getFileName = (state: FileState) => state.file.fileName
+export const getFileContents = (state: FileState) => state.file.fileContents 

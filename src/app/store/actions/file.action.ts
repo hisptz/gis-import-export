@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { importExpr } from '@angular/compiler/src/output/output_ast';
-import { ErrorMessage } from '../../core/models';
+import { ErrorMessage,File } from '../../core/models';
 
 export const enum FileActionTypes {
 	LOAD_FILE = '[File] Load file',
@@ -14,7 +14,7 @@ export class LoadFile implements Action {
 
 export class LoadFileSuccess implements Action {
 	readonly type = FileActionTypes.LOAD_FILE_SUCCESS;
-	constructor(public fileContents: any) {}
+	constructor(public file: File) {}
 }
 
 export class LoadFileFail implements Action {
