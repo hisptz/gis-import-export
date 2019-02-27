@@ -4,8 +4,9 @@
     <br>
 
     <div class="table-container">
+      <label class="prompt section-contents">Displaying: {{getdisplayedOrgUnitsCount$|async}} results out of
+        {{getTotalOrgUnitsCount$|async}}</label>
       <table class="table table bordered table-min">
-
         <tr>
           <th>Code</th>
           <th>Name</th>
@@ -13,7 +14,15 @@
           <th>Feature Type</th>
         </tr>
 
-        <tr *ngFor="let orgUnit of (orgUnits$ | async) | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+        <tr>
+          <td><input type="text" name="code" class="form-control" placeholder="Type code..." (input)="searchOrgUnit($event)"></td>
+          <td><input type="text" name="name" class="form-control" placeholder="Type name..." (input)="searchOrgUnit($event)"></td>
+          <td><input type="number" min="1" max="4" name="level" class="form-control" placeholder="Type level..."
+              (input)="searchOrgUnit($event)"></td>
+          <td><input type="text" name="featureType" class="form-control" placeholder="Type feature type..." (input)="searchOrgUnit($event)"></td>
+        </tr>
+
+        <tr *ngFor="let orgUnit of  (orgUnits$ | async)| slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
           <td>{{orgUnit.code}}</td>
           <td>{{orgUnit.name}}</td>
           <td>{{orgUnit.level}}</td>

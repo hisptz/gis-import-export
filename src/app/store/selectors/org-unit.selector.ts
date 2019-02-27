@@ -12,4 +12,8 @@ export const getFailed = createSelector(getOrgUnitState, fromOrgUnitReducers.get
 
 export const getOrgUnits = createSelector(getOrgUnitState, fromOrgUnitReducers.getOrgUnits);
 
+export const getdisplayedOrgUnitsCount = createSelector(getOrgUnitState, fromOrgUnitReducers.getdisplayedOrgUnitsCount);
+
+export const getTotalOrgUnitsCount = createSelector(getOrgUnitState, fromOrgUnitReducers.getTotalOrgUnitsCount);
+
 export const getError = createSelector(getOrgUnitState, fromOrgUnitReducers.getError);

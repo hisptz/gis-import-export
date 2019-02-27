@@ -7,6 +7,7 @@ import { OrganisationUnit } from '../../core/models/org-unit.model';
 import { ErrorMessage } from '../../core/models/error-message.model';
 import { Observable } from 'rxjs';
 import { orgUnitTableHeaders } from '../../core/constants';
+import { search } from '../../core/utils/search.util';
 
 @Component({
 	selector: 'app-org-units',
@@ -19,8 +20,10 @@ export class OrgUnitsComponent implements OnInit {
 	public failed$: Observable<boolean>;
 	public error$: Observable<ErrorMessage>;
 	public orgUnits$: Observable<OrganisationUnit[]>;
+	public getdisplayedOrgUnitsCount$: Observable<number>
+	public getTotalOrgUnitsCount$: Observable<number>
 
-	public pageSize =  80;
+	public pageSize = 80;
 	public page = 1;
 	public tableHeaders = orgUnitTableHeaders;
 
@@ -30,7 +33,19 @@ export class OrgUnitsComponent implements OnInit {
 		this.loading$ = this.store$.select(fromOrgUnitSelectors.getLoading);
 		this.loaded$ = this.store$.select(fromOrgUnitSelectors.getLoaded);
 		this.orgUnits$ = this.store$.select(fromOrgUnitSelectors.getOrgUnits);
+		this.getdisplayedOrgUnitsCount$ = this.store$.select(fromOrgUnitSelectors.getdisplayedOrgUnitsCount)
+		this.getTotalOrgUnitsCount$ = this.store$.select(fromOrgUnitSelectors.getTotalOrgUnitsCount)
 	}
 
 	ngOnInit() {}
+
+	searchOrgUnit(event) {
+		this.store$.dispatch(
+			new fromOrgUnitActions.SearchOrgUnit({
+				key: event.target.name,
+				value: event.target.value,
+				option: 'includes'
+			})
+		);
+	}
 }
