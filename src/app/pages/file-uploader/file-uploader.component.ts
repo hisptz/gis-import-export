@@ -4,7 +4,7 @@ import * as fromFileSelectors from '../../store/selectors/file.selector';
 import { State } from '../../store/reducers';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ErrorMessage } from '../../core/models';
+import { ErrorMessage, File } from '../../core/models';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 
 @Component({
@@ -15,7 +15,7 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 export class FileUploaderComponent implements OnInit {
 	public loading$: Observable<boolean>;
 	public loaded$: Observable<boolean>;
-	public fileContents$: Observable<any>;
+	public file$: Observable<any>;
 	public failed$: Observable<boolean>;
 	public errorMessage$: Observable<ErrorMessage>;
 
@@ -25,7 +25,7 @@ export class FileUploaderComponent implements OnInit {
 	constructor(private store: Store<State>) {
 		this.loading$ = this.store.select(fromFileSelectors.getFileLoading);
 		this.loaded$ = this.store.select(fromFileSelectors.getFileLoaded);
-		this.fileContents$ = this.store.select(fromFileSelectors.getFileFileContents);
+		this.file$ = this.store.select(fromFileSelectors.getFile);
 		this.failed$ = this.store.select(fromFileSelectors.getFileFailed);
 		this.errorMessage$ = this.store.select(fromFileSelectors.getFileError);
 		//Set Json editor options
@@ -44,16 +44,18 @@ export class FileUploaderComponent implements OnInit {
 	}
 
 	uploadFile(event) {
-		let file = event.target.files[0];
-		let fileType = file.name.split('.')[1];
+		let fileType = event.target.files[0].name.split('.')[1];
 		let fileReader = new FileReader();
 		this.store.dispatch(new fromFileActions.LoadFile());
 		fileReader.onload = () => {
-			let fileContents = fileReader.result;
 			switch (fileType) {
 				case 'json':
 					try {
-						this.store.dispatch(new fromFileActions.LoadFileSuccess(JSON.parse(fileContents.toString())));
+						let file: File = {
+							fileName: event.target.files[0].name,
+							fileContents: JSON.parse(fileReader.result.toString())
+						};
+						this.store.dispatch(new fromFileActions.LoadFileSuccess(file));
 					} catch (excpetion) {
 						let errorMessage: ErrorMessage = {
 							statusCode: 406,
@@ -73,14 +75,20 @@ export class FileUploaderComponent implements OnInit {
 					return;
 			}
 		};
-		fileReader.readAsText(file);
+		fileReader.readAsText(event.target.files[0]);
 	}
 
 	showDesc() {
 		document.getElementById('supported-formats-prompt').hidden = false;
+		document.getElementById('selected-file-name')
+			? (document.getElementById('selected-file-name').hidden = true)
+			: '';
 	}
 
 	hideDesc() {
 		document.getElementById('supported-formats-prompt').hidden = true;
+		document.getElementById('selected-file-name')
+			? (document.getElementById('selected-file-name').hidden = false)
+			: '';
 	}
 }

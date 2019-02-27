@@ -4,16 +4,16 @@
     <img src="assets/icons/upload.png" alt="" srcset="" class="icon" (click)="openFileChooser($event)" (mouseover)="showDesc()"
       (mouseout)="hideDesc()" ngbTooltip="Upload file">
     &nbsp;
-    <span id="supported-formats-prompt" style="font-size: 0.9em; padding-top: 9px; font-weight: bold; color: gray"
-      hidden>
+    <span id="supported-formats-prompt" class="prompt" hidden>
       Supported Formats [.json]
     </span>
+    <span *ngIf="loaded$ | async" id="selected-file-name" class="prompt">{{(file$|async).fileName}}</span>
   </div>
   <div *ngIf="!(failed$|async)">
     <!--Json Editor-->
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12">
-        <json-editor [options]="jsonEditorOptions" [data]="(fileContents$ | async)" class="json-editor"></json-editor>
+        <json-editor [options]="jsonEditorOptions" [data]="(file$ | async).fileContents" class="json-editor"></json-editor>
       </div>
     </div>
   </div>

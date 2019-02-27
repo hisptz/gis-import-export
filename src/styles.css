@@ -97,3 +97,10 @@ div.jsoneditor-menu {
     height: 300px;
     overflow: auto
 }
+
+span.prompt {
+    font-size: 0.9em;
+    padding-top: 9px;
+    font-weight: bold;
+    color: gray
+}
