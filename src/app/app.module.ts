@@ -32,7 +32,8 @@ import { OrgUnitsComponent } from './pages/org-units/org-units.component';
 import { ResultsComponent } from './pages/results/results.component';
 import { FileContentComponent } from './pages/file-content/file-content.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { NgJsonEditorModule } from 'ang-jsoneditor'
+import { NgJsonEditorModule } from 'ang-jsoneditor';
+import { MapComponent } from './pages/map/map.component'
 
 
 // AoT requires an exported function for factories
@@ -41,7 +42,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, ...fromPages.pages, FileUploaderComponent, MatcherComponent, OrgUnitsComponent, ResultsComponent, FileContentComponent],
+  declarations: [AppComponent, ...fromPages.pages, FileUploaderComponent, MatcherComponent, OrgUnitsComponent, ResultsComponent, FileContentComponent, MapComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
