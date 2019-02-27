@@ -1,15 +1,23 @@
 <div class="section-contents">
-  <input type="file" id="input-file-upload" (change)="uploadFile($event)" accept=".json" hidden />
-  <img src="assets/icons/upload.png" alt="" srcset="" class="icon" (click)="openFileChooser($event)" (mouseover)="showDesc()"
-    (mouseout)="hideDesc()" ngbTooltip="Upload file">
-  &nbsp;
-  <span id="supported-formats-prompt" style="font-size: 0.9em; padding-top: 9px; font-weight: bold; color: gray" hidden>
-    Supported Formats [.json]
-  </span>
-  <!--Json Editor-->
-  <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <json-editor [options]="jsonEditorOptions" [data]="(fileContents$ | async)" class="json-editor"></json-editor>
+  <div>
+    <input type="file" id="input-file-upload" (change)="uploadFile($event)" accept=".json" hidden />
+    <img src="assets/icons/upload.png" alt="" srcset="" class="icon" (click)="openFileChooser($event)" (mouseover)="showDesc()"
+      (mouseout)="hideDesc()" ngbTooltip="Upload file">
+    &nbsp;
+    <span id="supported-formats-prompt" style="font-size: 0.9em; padding-top: 9px; font-weight: bold; color: gray"
+      hidden>
+      Supported Formats [.json]
+    </span>
+  </div>
+  <div *ngIf="!(failed$|async)">
+    <!--Json Editor-->
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <json-editor [options]="jsonEditorOptions" [data]="(fileContents$ | async)" class="json-editor"></json-editor>
+      </div>
     </div>
+  </div>
+  <div *ngIf="failed$ | async">
+    <app-error [errorMessage]="errorMessage$ | async"></app-error>
   </div>
 </div>

@@ -17,7 +17,7 @@ export class FileUploaderComponent implements OnInit {
 	public loaded$: Observable<boolean>;
 	public fileContents$: Observable<any>;
 	public failed$: Observable<boolean>;
-	public errorMessage: Observable<ErrorMessage>;
+	public errorMessage$: Observable<ErrorMessage>;
 
 	//Json Editor options
 	public jsonEditorOptions: JsonEditorOptions;
@@ -27,7 +27,7 @@ export class FileUploaderComponent implements OnInit {
 		this.loaded$ = this.store.select(fromFileSelectors.getFileLoaded);
 		this.fileContents$ = this.store.select(fromFileSelectors.getFileFileContents);
 		this.failed$ = this.store.select(fromFileSelectors.getFileFailed);
-		this.errorMessage = this.store.select(fromFileSelectors.getFileError);
+		this.errorMessage$ = this.store.select(fromFileSelectors.getFileError);
 		//Set Json editor options
 		this.jsonEditorOptions = new JsonEditorOptions();
 		this.jsonEditorOptions.modes = [ 'code', 'text', 'tree', 'view' ];
@@ -52,13 +52,22 @@ export class FileUploaderComponent implements OnInit {
 			let fileContents = fileReader.result;
 			switch (fileType) {
 				case 'json':
-					this.store.dispatch(new fromFileActions.LoadFileSuccess(JSON.parse(fileContents.toString())));
+					try {
+						this.store.dispatch(new fromFileActions.LoadFileSuccess(JSON.parse(fileContents.toString())));
+					} catch (excpetion) {
+						let errorMessage: ErrorMessage = {
+							statusCode: 406,
+							statusText: 'File not acceptable',
+							message: 'This file seems to be broken, please choose another file!'
+						};
+						this.store.dispatch(new fromFileActions.LoadFileFail(errorMessage));
+					}
 					break;
 				default:
 					let errorMessage: ErrorMessage = {
-						statusCode: 404,
-						statusText: 'File Not Supported',
-						message: 'File Not Supported'
+						statusCode: 505,
+						statusText: 'File not supported',
+						message: 'File not supported'
 					};
 					this.store.dispatch(new fromFileActions.LoadFileFail(errorMessage));
 					return;
