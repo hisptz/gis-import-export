@@ -38,6 +38,7 @@
     "bootstrap": "^4.3.1",
     "core-js": "^2.6.5",
     "jsoneditor": "^5.29.1",
+    "lodash": "^4.17.11",
     "rxjs": "~6.3.3",
     "zone.js": "^0.8.29"
   },
